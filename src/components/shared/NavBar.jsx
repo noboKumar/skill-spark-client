@@ -63,7 +63,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-end gap-5">
           <ToggleTheme />
-          <Link className="btn btn-primary text-white gap-2" to="/login">
+          <Link to="/login" className="btn btn-primary text-white gap-2">
             <FiLogIn size={18} />
             Sign in
           </Link>
