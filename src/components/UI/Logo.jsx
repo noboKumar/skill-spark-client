@@ -7,7 +7,7 @@ const Logo = () => {
       <img className="h-15 w-15" src={logo} alt="Logo" />
       <h1 className="text-2xl font-bold heading-font text-shadow-2xs">
         {/* TODO: add dual color text */}
-        <span>Skill</span> <span>Spark</span>
+        <span className="text-primary">Skill</span> <span className="text-[#d6a70d]">Spark</span>
       </h1>
     </div>
   );

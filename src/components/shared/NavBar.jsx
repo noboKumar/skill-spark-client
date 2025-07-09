@@ -3,12 +3,22 @@ import Container from "../UI/Container";
 import Logo from "../UI/Logo";
 import ToggleTheme from "../UI/ToggleTheme";
 import { Link } from "react-router";
+import { FiLogIn } from "react-icons/fi";
 
 const NavBar = () => {
   const navLinks = (
     <>
       <li>
         <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/all-classes">All Classes</Link>
+      </li>
+      <li>
+        <Link to="/teach-on-skill-spark">Teach on Skill Spark</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
     </>
   );
@@ -47,11 +57,16 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-xl gap-2">{navLinks}</ul>
+          <ul className="menu menu-horizontal px-1 text-xl gap-2 text-[var(--color-text)] font-semibold">
+            {navLinks}
+          </ul>
         </div>
         <div className="navbar-end gap-5">
           <ToggleTheme />
-          <a className="btn btn-primary">Button</a>
+          <Link className="btn btn-primary text-white gap-2" to="/login">
+            <FiLogIn size={18} />
+            Sign in
+          </Link>
         </div>
       </Container>
     </div>
