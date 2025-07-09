@@ -1,0 +1,12 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+.heading-font {
+  font-family: 'Outfit', sans-serif;
+}
+.body-font {
+  font-family: 'Source Sans 3', sans-serif;
+}
