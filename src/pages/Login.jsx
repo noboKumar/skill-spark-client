@@ -1,12 +1,13 @@
 import React from "react";
 import Lottie from "lottie-react";
 import { FaEye } from "react-icons/fa";
-import animationData from "../assets/Login-animation.json"; // Placeholder for the animation
+import animationData from "../assets/Login-animation.json";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+  // TODO: add Password visibility toggle functionality
   const { loginUser } = useAuth();
   const {
     register,

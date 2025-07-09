@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 
 const Register = () => {
+  // TODO: add Password visibility toggle functionality
   const { createUser } = useAuth();
   const {
     register,
