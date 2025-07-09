@@ -3,8 +3,26 @@ import Lottie from "lottie-react";
 import { FaEye } from "react-icons/fa";
 import animationData from "../assets/Login-animation.json"; // Placeholder for the animation
 import { Link } from "react-router";
+import useAuth from "../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { loginUser } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleLogin = (data) => {
+    loginUser(data.email, data.password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
@@ -19,14 +37,15 @@ const Login = () => {
             Login to Your Account
           </h1>
 
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
             {/* Email */}
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-600">
                 Email Address
               </label>
               <input
-                type="text"
+                {...register("email", { required: true })}
+                type="email"
                 placeholder="user@example.com"
                 className="input w-full"
               />
@@ -39,9 +58,10 @@ const Login = () => {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  {...register("password", { required: true })}
+                  type="password"
                   placeholder="MySecureP@ss123"
-                  className="input w-full pr-10"
+                  className="input w-full"
                 />
                 <FaEye className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
               </div>
@@ -51,6 +71,9 @@ const Login = () => {
             <button type="submit" className="btn btn-primary mt-4 w-full">
               Login
             </button>
+            {(errors.email || errors.password) && (
+              <span className="text-error">All fields are required</span>
+            )}
 
             {/* Divider + Google button */}
             <div className="divider">Or continue with</div>
