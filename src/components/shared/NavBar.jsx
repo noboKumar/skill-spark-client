@@ -4,8 +4,13 @@ import Logo from "../UI/Logo";
 import ToggleTheme from "../UI/ToggleTheme";
 import { Link } from "react-router";
 import { FiLogIn } from "react-icons/fi";
+import useAuth from "../../hooks/useAuth";
+import { FaSignOutAlt } from "react-icons/fa";
+import DropDownAvatar from "../UI/DropDownAvatar";
+import { AiOutlineMenu } from "react-icons/ai";
 
 const NavBar = () => {
+  const { user } = useAuth();
   const navLinks = (
     <>
       <li>
@@ -17,32 +22,15 @@ const NavBar = () => {
       <li>
         <Link to="/teach-on-skill-spark">Teach on Skill Spark</Link>
       </li>
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
     </>
   );
   return (
-    <div className="bg-base-200 shadow-sm py-2">
+    <div className="bg-base-200 shadow-sm py-2 z-50 sticky top-0">
       <Container className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
+              <AiOutlineMenu size={20} />
             </div>
             <ul
               tabIndex={0}
@@ -62,11 +50,16 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end gap-5">
+          {/* Toggle Theme */}
           <ToggleTheme />
-          <Link to="/login" className="btn btn-primary text-white gap-2">
-            <FiLogIn size={18} />
-            Sign in
-          </Link>
+          {user ? (
+            <DropDownAvatar />
+          ) : (
+            <Link to="/login" className="btn btn-primary text-white gap-2">
+              <FiLogIn size={18} />
+              Sign in
+            </Link>
+          )}
         </div>
       </Container>
     </div>

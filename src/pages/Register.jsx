@@ -7,13 +7,15 @@ import useAuth from "../hooks/useAuth";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
-  const { createUser } = useAuth();
+  const { createUser, googleSignIn } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // TODO: add swal and redirect after registration
+  //! TODO: add image upload functionality
   const handleRegister = (data) => {
     createUser(data.email, data.password)
       .then((userCredential) => {
@@ -23,6 +25,17 @@ const Register = () => {
         console.log(error);
       });
   };
+
+  const handleGoogleLogIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
@@ -85,7 +98,7 @@ const Register = () => {
             </div>
 
             {/* Register button */}
-            <button type="submit" className="btn btn-primary mt-4 w-full">
+            <button type="submit" className="btn btn-primary mt-4 w-full rounded-full">
               Register
             </button>
             {(errors.username || errors.email || errors.password) && (
@@ -95,8 +108,9 @@ const Register = () => {
             {/* Divider + Google button */}
             <div className="divider">Or continue with</div>
             <button
+              onClick={handleGoogleLogIn}
               type="button"
-              className="btn btn-wide bg-base-100 border-[#e5e5e5] mx-auto flex items-center justify-center"
+              className="btn btn-wide rounded-full bg-base-100 border-[#e5e5e5] mx-auto flex items-center justify-center"
             >
               <svg
                 aria-label="Google logo"

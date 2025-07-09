@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { googleSignIn } = useAuth();
   // TODO: add Password visibility toggle functionality
   const { loginUser } = useAuth();
   const {
@@ -15,10 +16,21 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  // TODO: add swal and redirect after login
   const handleLogin = (data) => {
     loginUser(data.email, data.password)
       .then((userCredential) => {
         console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleLogIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result);
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +81,10 @@ const Login = () => {
             </div>
 
             {/* Register button */}
-            <button type="submit" className="btn btn-primary mt-4 w-full">
+            <button
+              type="submit"
+              className="btn btn-primary rounded-full mt-4 w-full"
+            >
               Login
             </button>
             {(errors.email || errors.password) && (
@@ -79,8 +94,9 @@ const Login = () => {
             {/* Divider + Google button */}
             <div className="divider">Or continue with</div>
             <button
+              onClick={handleGoogleLogIn}
               type="button"
-              className="btn btn-wide bg-base-100 border-[#e5e5e5] mx-auto flex items-center justify-center"
+              className="btn btn-wide rounded-full bg-base-100 border-[#e5e5e5] mx-auto flex items-center justify-center"
             >
               <svg
                 aria-label="Google logo"
