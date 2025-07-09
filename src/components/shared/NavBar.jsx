@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "../UI/Container";
 import Logo from "../UI/Logo";
+import ToggleTheme from "../UI/ToggleTheme";
 
 const NavBar = () => {
   return (
@@ -76,7 +77,8 @@ const NavBar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end gap-5">
+          <ToggleTheme />
           <a className="btn">Button</a>
         </div>
       </Container>
