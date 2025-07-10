@@ -1,7 +1,6 @@
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link, Outlet } from "react-router";
-import ToggleTheme from "../components/UI/ToggleTheme";
+import { Outlet } from "react-router";
 import DashboardSideBar from "../components/Dashboard/DashboardSideBar";
 import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import { Toaster } from "react-hot-toast";
