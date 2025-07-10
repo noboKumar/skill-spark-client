@@ -1,10 +1,10 @@
 import React from 'react';
+import BannerSection from '../components/sections/Home/BannerSection';
 
 const Home = () => {
     return (
         <div>
-            <h1>Welcome to Skill Spark</h1>
-            <p>Your journey to skill mastery starts here.</p>
+            <BannerSection></BannerSection>
         </div>
     );
 };
