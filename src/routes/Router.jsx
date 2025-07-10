@@ -5,6 +5,8 @@ import AllClasses from "../pages/AllClasses";
 import TeachOnSkillSpark from "../pages/TeachOnSkillSpark";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import DashBoardLayout from "../layouts/DashBoardLayout";
+import UserProfile from "../pages/Dashboard/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,16 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoardLayout />,
+    children: [
+      {
+        index: true,
+        Component: UserProfile,
       },
     ],
   },

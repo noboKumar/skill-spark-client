@@ -2,6 +2,7 @@ import React from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaChevronDown } from "react-icons/fa";
 import { FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router";
 
 const DropDownAvatar = () => {
   const { user, logOutUser } = useAuth();
@@ -34,10 +35,10 @@ const DropDownAvatar = () => {
         </p>
         <div className="divider my-0"></div>
         <li>
-          <a className="flex items-center gap-2">
+          <Link to="/dashboard" className="flex items-center gap-2">
             <FaTachometerAlt />
             Dashboard
-          </a>
+          </Link>
         </li>
         <li>
           <button

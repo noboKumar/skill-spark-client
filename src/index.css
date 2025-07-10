@@ -11,7 +11,7 @@
   font-family: "Source Sans 3", sans-serif;
 }
 .active {
-  @apply bg-base-200 text-base-content;
+  @apply bg-primary text-white;
 }
 
 :root {

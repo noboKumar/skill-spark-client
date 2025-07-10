@@ -2,7 +2,7 @@ import React from "react";
 import Container from "../UI/Container";
 import Logo from "../UI/Logo";
 import ToggleTheme from "../UI/ToggleTheme";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { FiLogIn } from "react-icons/fi";
 import useAuth from "../../hooks/useAuth";
 import DropDownAvatar from "../UI/DropDownAvatar";
@@ -13,13 +13,13 @@ const NavBar = () => {
   const navLinks = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/all-classes">All Classes</Link>
+        <NavLink to="/all-classes">All Classes</NavLink>
       </li>
       <li>
-        <Link to="/teach-on-skill-spark">Teach on Skill Spark</Link>
+        <NavLink to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
       </li>
     </>
   );
