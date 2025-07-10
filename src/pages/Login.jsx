@@ -5,6 +5,7 @@ import animationData from "../assets/Login-animation.json";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { saveUserInDb } from "../API/utils";
 
 const Login = () => {
   const { googleSignIn } = useAuth();
@@ -19,8 +20,14 @@ const Login = () => {
   // TODO: add swal and redirect after login
   const handleLogin = (data) => {
     loginUser(data.email, data.password)
-      .then((userCredential) => {
-        console.log(userCredential);
+      .then((result) => {
+        console.log(result.user);
+        const userData = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        };
+        saveUserInDb(userData);
       })
       .catch((error) => {
         console.log(error);
