@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import animationData from "../assets/register-animation.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
@@ -17,23 +18,48 @@ const Register = () => {
   // TODO: add swal and redirect after registration
   // TODO: try to upload local image to firebase storage
   const handleRegister = (data) => {
-    console.log(data);
-    createUser(data.email, data.password).then((result) => {
-      const user = result.user;
-      console.log(user);
-      // Update user profile with username and image
-      updateUser({
-        displayName: data.username,
-        photoURL: data.image,
-      }).then(() => {
-        setUser({...user, displayName: data.username, photoURL: data.image });
-      }).catch((error) => {
-        console.error("Error updating user profile:", error);
-      });
+    const imageFile = data.image[0]; // react-hook-form returns FileList
 
-    }).catch((error) => {
-      console.error("Error creating user:", error);
-    });
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    axios
+      .post(
+        `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMGBB_API_KEY
+        }`,
+        formData
+      )
+      .then((res) => {
+        const imageUrl = res.data.data.url;
+
+        // Create user in Firebase
+        createUser(data.email, data.password)
+          .then((result) => {
+            const user = result.user;
+
+            updateUser({
+              displayName: data.username,
+              photoURL: imageUrl,
+            })
+              .then(() => {
+                setUser({
+                  ...user,
+                  displayName: data.username,
+                  photoURL: imageUrl,
+                });
+              })
+              .catch((err) => {
+                console.error("Error updating profile:", err);
+              });
+          })
+          .catch((err) => {
+            console.error("Error creating user:", err);
+          });
+      })
+      .catch((err) => {
+        console.error("Image upload failed:", err);
+      });
   };
 
   const handleGoogleLogIn = () => {
@@ -76,10 +102,9 @@ const Register = () => {
                 Profile Photo
               </label>
               <input
-                type="url"
-                placeholder="Photo URL"
-                className="input w-full"
                 {...register("image", { required: true })}
+                type="file"
+                className="file-input"
               />
             </div>
 
