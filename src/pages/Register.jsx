@@ -17,7 +17,6 @@ const Register = () => {
   } = useForm();
 
   // TODO: add swal and redirect after registration
-  // TODO: try to upload local image to firebase storage
   const handleRegister = (data) => {
     const imageFile = data.image[0]; // react-hook-form returns FileList
 

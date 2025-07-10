@@ -25,6 +25,9 @@ const marqueeItems = [
 const PartnershipSection = () => {
   return (
     <div className="relative py-10">
+      <h1 className="text-3xl font-semibold text-center my-10">
+        Our Trusted Partners & Platforms
+      </h1>
       {/* Left fade */}
       <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white dark:from-base-100 to-transparent z-10 pointer-events-none"></div>
 
