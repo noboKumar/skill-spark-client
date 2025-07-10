@@ -34,8 +34,8 @@
   --color-accent: #bbbbbb;        /* Light gray for highlights */
 
   /* Base Colors (Dark Mode) */
-  --color-base-100: #121212;      /* Main background */
-  --color-base-200: #1f1f1f;      /* Cards/sections */
+  --color-base-100: #222222;      /* Main background */
+  --color-base-200: #252525;      /* Cards/sections */
   --color-base-300: #2a2a2a;      /* Borders / dividers */
   --color-text: #f5f5f5;          /* Light text */
 }

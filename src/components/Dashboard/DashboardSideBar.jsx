@@ -8,57 +8,79 @@ import {
   FaUsers,
   FaRegUser,
   FaUser,
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { MdLibraryBooks } from "react-icons/md";
+import Logo from "../UI/Logo";
+import useAuth from "../../hooks/useAuth";
 
 const DashboardSideBar = () => {
+  const { logOutUser } = useAuth();
+  const handleLogout = () => {
+    logOutUser();
+  };
+
   return (
     <div className="drawer-side z-50 border-r-2 border-gray-300">
       <label htmlFor="responsive-drawer" className="drawer-overlay"></label>
-      <ul className="menu bg-base-200 min-h-full w-80 p-4 text-lg font-semibold">
-        {/* Student Menu */}
-        <li>
-          <NavLink to="/my-class" end>
-            <FaBookOpen /> My Enroll Class
-          </NavLink>
-        </li>
+      <div className="flex flex-col justify-between bg-base-200 min-h-full p-4">
+        {/* Top Section */}
+        <ul className="menu text-lg font-semibold gap-2 lg:w-80">
+          <Logo />
+          <div className="divider my-0"></div>
 
-        {/* Teacher Menu */}
-        <li>
-          <NavLink to="/add-class" end>
-            <FaChalkboardTeacher /> Add Class
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/my-class" end>
-            <MdLibraryBooks /> My Class
-          </NavLink>
-        </li>
+          {/* Student Menu */}
+          <li>
+            <NavLink to="/my-class" end>
+              <FaBookOpen /> My Enroll Class
+            </NavLink>
+          </li>
 
-        {/* Admin Menu */}
-        <li>
-          <NavLink to="/teacher-request" end>
-            <FaUserCheck /> Teacher Request
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/users" end>
-            <FaUsers /> Users
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/all-classes" end>
-            <FaListAlt /> All Classes
-          </NavLink>
-        </li>
+          {/* Teacher Menu */}
+          <li>
+            <NavLink to="/add-class" end>
+              <FaChalkboardTeacher /> Add Class
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/my-class" end>
+              <MdLibraryBooks /> My Class
+            </NavLink>
+          </li>
 
-        {/* Shared Menu */}
-        <li>
-          <NavLink to="/dashboard" end>
-            <FaRegUser /> Profile
-          </NavLink>
-        </li>
-      </ul>
+          {/* Admin Menu */}
+          <li>
+            <NavLink to="/teacher-request" end>
+              <FaUserCheck /> Teacher Request
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/users" end>
+              <FaUsers /> Users
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/all-classes" end>
+              <FaListAlt /> All Classes
+            </NavLink>
+          </li>
+
+          {/* Shared Menu */}
+          <li>
+            <NavLink to="/dashboard" end>
+              <FaRegUser /> Profile
+            </NavLink>
+          </li>
+        </ul>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="btn btn-outline border-red-700 text-red-700 mt-4 flex items-center gap-2 justify-center"
+        >
+          <FaSignOutAlt /> Logout
+        </button>
+      </div>
     </div>
   );
 };
