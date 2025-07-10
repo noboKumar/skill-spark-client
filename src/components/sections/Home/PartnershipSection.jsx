@@ -33,7 +33,7 @@ const PartnershipSection = () => {
 
       {/* Marquee */}
       <Marquee speed={50} gradient={false}>
-        <div className="flex gap-10 items-center">
+        <div className="flex gap-10 items-center px-5">
           {marqueeItems.map((icon, index) => (
             <img
               key={index}
