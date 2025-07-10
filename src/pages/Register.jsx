@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
-  const { createUser, googleSignIn } = useAuth();
+  const { createUser, googleSignIn, setUser, updateUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -15,15 +15,25 @@ const Register = () => {
   } = useForm();
 
   // TODO: add swal and redirect after registration
-  //! TODO: add image upload functionality
+  // TODO: try to upload local image to firebase storage
   const handleRegister = (data) => {
-    createUser(data.email, data.password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
+    console.log(data);
+    createUser(data.email, data.password).then((result) => {
+      const user = result.user;
+      console.log(user);
+      // Update user profile with username and image
+      updateUser({
+        displayName: data.username,
+        photoURL: data.image,
+      }).then(() => {
+        setUser({...user, displayName: data.username, photoURL: data.image });
+      }).catch((error) => {
+        console.error("Error updating user profile:", error);
       });
+
+    }).catch((error) => {
+      console.error("Error creating user:", error);
+    });
   };
 
   const handleGoogleLogIn = () => {
@@ -63,9 +73,14 @@ const Register = () => {
             {/* Photo input */}
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-600">
-                Upload Photo
+                Profile Photo
               </label>
-              <input type="file" className="file-input w-full" />
+              <input
+                type="url"
+                placeholder="Photo URL"
+                className="input w-full"
+                {...register("image", { required: true })}
+              />
             </div>
 
             {/* Email */}
@@ -98,7 +113,10 @@ const Register = () => {
             </div>
 
             {/* Register button */}
-            <button type="submit" className="btn btn-primary mt-4 w-full rounded-full">
+            <button
+              type="submit"
+              className="btn btn-primary mt-4 w-full rounded-full"
+            >
               Register
             </button>
             {(errors.username || errors.email || errors.password) && (

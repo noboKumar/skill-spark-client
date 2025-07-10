@@ -5,7 +5,6 @@ import ToggleTheme from "../UI/ToggleTheme";
 import { Link } from "react-router";
 import { FiLogIn } from "react-icons/fi";
 import useAuth from "../../hooks/useAuth";
-import { FaSignOutAlt } from "react-icons/fa";
 import DropDownAvatar from "../UI/DropDownAvatar";
 import { AiOutlineMenu } from "react-icons/ai";
 

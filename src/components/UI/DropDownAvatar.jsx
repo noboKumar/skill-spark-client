@@ -5,6 +5,7 @@ import { FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 
 const DropDownAvatar = () => {
   const { user, logOutUser } = useAuth();
+  //!   TODO: Add Confirm Swal before logging out
   return (
     <>
       {/* Trigger Button */}
@@ -14,7 +15,7 @@ const DropDownAvatar = () => {
         style={{ anchorName: "--user-dropdown-anchor" }}
       >
         <img
-          src={user?.photoURL || "https://via.placeholder.com/150"}
+          src={user?.photoURL}
           alt="profile"
           className="w-10 h-10 rounded-full"
         />
