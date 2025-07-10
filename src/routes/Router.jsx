@@ -8,6 +8,11 @@ import Register from "../pages/Register";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 import UserProfile from "../pages/Dashboard/UserProfile";
 import PrivateRouter from "./PrivateRouter";
+import MyEnrollClass from "../pages/Dashboard/Student/MyEnrollClass";
+import AddClass from "../pages/Dashboard/Teacher/AddClass";
+import MyClass from "../pages/Dashboard/Teacher/MyClass";
+import TeacherRequest from "../pages/Dashboard/Admin/TeacherRequest";
+import Users from "../pages/Dashboard/Admin/Users";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +52,30 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: UserProfile,
+      },
+      {
+        path: "my-enroll-class",
+        Component: MyEnrollClass,
+      },
+      {
+        path: "add-class",
+        Component: AddClass,
+      },
+      {
+        path: "my-class",
+        Component: MyClass,
+      },
+      {
+        path: "teacher-request",
+        Component: TeacherRequest,
+      },
+      {
+        path: "users",
+        Component: Users,
+      },
+      {
+        path: "all-classes",
+        Component: AllClasses,
       },
     ],
   },

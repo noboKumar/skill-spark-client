@@ -46,36 +46,36 @@ const DashboardSideBar = () => {
 
           {/* Student Menu */}
           <li>
-            <NavLink to="/my-class" end>
+            <NavLink to="/dashboard/my-enroll-class" end>
               <FaBookOpen /> My Enroll Class
             </NavLink>
           </li>
 
           {/* Teacher Menu */}
           <li>
-            <NavLink to="/add-class" end>
+            <NavLink to="/dashboard/add-class" end>
               <FaChalkboardTeacher /> Add Class
             </NavLink>
           </li>
           <li>
-            <NavLink to="/my-class" end>
+            <NavLink to="/dashboard/my-class" end>
               <MdLibraryBooks /> My Class
             </NavLink>
           </li>
 
           {/* Admin Menu */}
           <li>
-            <NavLink to="/teacher-request" end>
+            <NavLink to="/dashboard/teacher-request" end>
               <FaUserCheck /> Teacher Request
             </NavLink>
           </li>
           <li>
-            <NavLink to="/users" end>
+            <NavLink to="/dashboard/users" end>
               <FaUsers /> Users
             </NavLink>
           </li>
           <li>
-            <NavLink to="/all-classes" end>
+            <NavLink to="/dashboard/all-classes" end>
               <FaListAlt /> All Classes
             </NavLink>
           </li>
