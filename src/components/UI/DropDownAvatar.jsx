@@ -3,10 +3,27 @@ import useAuth from "../../hooks/useAuth";
 import { FaChevronDown } from "react-icons/fa";
 import { FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const DropDownAvatar = () => {
   const { user, logOutUser } = useAuth();
-  //!   TODO: Add Confirm Swal before logging out
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOutUser()
+        toast.success('Successfully logged out!')
+      }
+    });
+  };
   return (
     <>
       {/* Trigger Button */}
@@ -42,7 +59,7 @@ const DropDownAvatar = () => {
         </li>
         <li>
           <button
-            onClick={logOutUser}
+            onClick={handleLogout}
             className="flex items-center gap-2 w-full text-left"
           >
             <FaSignOutAlt />

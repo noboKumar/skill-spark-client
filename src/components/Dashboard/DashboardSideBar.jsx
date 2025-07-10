@@ -13,11 +13,26 @@ import {
 import { MdLibraryBooks } from "react-icons/md";
 import Logo from "../UI/Logo";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const DashboardSideBar = () => {
-  const { logOutUser } = useAuth();
+  const { user, logOutUser } = useAuth();
   const handleLogout = () => {
-    logOutUser();
+    Swal.fire({
+      title: "Confirm Logout?",
+      text: "Are you sure you want to logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOutUser();
+        toast.success("Successfully logged out!");
+      }
+    });
   };
 
   return (
@@ -74,12 +89,14 @@ const DashboardSideBar = () => {
         </ul>
 
         {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          className="btn btn-outline border-red-700 text-red-700 mt-4 flex items-center gap-2 justify-center"
-        >
-          <FaSignOutAlt /> Logout
-        </button>
+        {user && (
+          <button
+            onClick={handleLogout}
+            className="btn btn-outline border-red-700 text-red-700 mt-4 flex items-center gap-2 justify-center"
+          >
+            <FaSignOutAlt /> Logout
+          </button>
+        )}
       </div>
     </div>
   );

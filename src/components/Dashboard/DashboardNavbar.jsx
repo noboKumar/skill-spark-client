@@ -10,11 +10,13 @@ const DashboardNavbar = () => {
         <h1 className="text-3xl font-bold my-4">Dashboard</h1>
         <div className="flex items-center gap-4">
           <ToggleTheme />
-          <div className="avatar">
-            <div className="w-15 rounded-full border-2 border-gray-400">
-              <img src={user?.photoURL} />
+          {user && (
+            <div className="avatar">
+              <div className="w-15 rounded-full border-2 border-gray-400">
+                <img src={user?.photoURL} />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
