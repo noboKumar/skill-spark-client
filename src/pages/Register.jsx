@@ -5,6 +5,7 @@ import animationData from "../assets/register-animation.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import { saveUserInDb } from "../API/utils";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
@@ -37,6 +38,13 @@ const Register = () => {
         createUser(data.email, data.password)
           .then((result) => {
             const user = result.user;
+            console.log({ user, data });
+
+            saveUserInDb({
+              email: data.email,
+              displayName: data.username,
+              photoURL: imageUrl,
+            });
 
             updateUser({
               displayName: data.username,
@@ -66,6 +74,11 @@ const Register = () => {
     googleSignIn()
       .then((result) => {
         console.log(result);
+        saveUserInDb({
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        });
       })
       .catch((error) => {
         console.log(error);

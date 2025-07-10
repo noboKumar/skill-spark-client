@@ -11,12 +11,12 @@ const DropDownAvatar = () => {
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You want to logout?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, logout!",
     }).then((result) => {
       if (result.isConfirmed) {
         logOutUser()

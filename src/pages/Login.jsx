@@ -38,6 +38,12 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         console.log(result);
+        const userData = {
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+        };
+        saveUserInDb(userData);
       })
       .catch((error) => {
         console.log(error);
