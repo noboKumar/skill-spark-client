@@ -15,6 +15,7 @@ import TeacherRequest from "../pages/Dashboard/Admin/TeacherRequest";
 import Users from "../pages/Dashboard/Admin/Users";
 import AdminRoute from "./AdminRoute";
 import Unauthorized from "../pages/Unauthorized";
+import TeacherRoute from "./TeacherRoute";
 
 export const router = createBrowserRouter([
   {
@@ -76,17 +77,17 @@ export const router = createBrowserRouter([
       {
         path: "add-class",
         element: (
-          <PrivateRouter>
+          <TeacherRoute>
             <AddClass />
-          </PrivateRouter>
+          </TeacherRoute>
         ),
       },
       {
         path: "my-class",
         element: (
-          <PrivateRouter>
+          <TeacherRoute>
             <MyClass />
-          </PrivateRouter>
+          </TeacherRoute>
         ),
       },
       // Admin Routes
