@@ -14,7 +14,7 @@ const TeachOnSkillSpark = () => {
     console.log("Form Submitted:", data);
   };
   return (
-    <div className="max-w-3xl mx-auto p-10 bg-white shadow-lg rounded-xl border border-gray-300">
+    <div className="max-w-3xl mx-auto p-10 bg-base-200 shadow-lg rounded-xl border border-gray-300">
       <h1 className="text-3xl font-bold text-center mb-6 text-primary">
         Apply as a Teacher
       </h1>
@@ -36,7 +36,7 @@ const TeachOnSkillSpark = () => {
           <input
             type="text"
             placeholder="Your Full Name"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-base-200"
             {...register("name", { required: true })}
           />
           {errors.name && (
@@ -51,7 +51,7 @@ const TeachOnSkillSpark = () => {
           </label>
           <input
             type="email"
-            className="input input-bordered w-full bg-gray-100"
+            className="input input-bordered w-full bg-base-200"
             readOnly
             defaultValue={user?.email}
           />
@@ -64,7 +64,7 @@ const TeachOnSkillSpark = () => {
           </label>
           <select
             defaultValue=""
-            className="select select-bordered w-full"
+            className="select select-bordered w-full bg-base-200"
             {...register("experience", { required: true })}
           >
             <option disabled value="">Select Experience</option>
@@ -87,7 +87,7 @@ const TeachOnSkillSpark = () => {
           <input
             type="text"
             placeholder="Ex: Complete React Bootcamp"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-base-200"
             {...register("title", { required: true })}
           />
           {errors.title && (
@@ -102,7 +102,7 @@ const TeachOnSkillSpark = () => {
           </label>
           <select
             defaultValue=""
-            className="select select-bordered w-full"
+            className="select select-bordered w-full bg-base-200"
             {...register("category", { required: true })}
           >
             <option disabled value="">
