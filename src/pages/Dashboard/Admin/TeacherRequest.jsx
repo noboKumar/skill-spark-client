@@ -1,6 +1,6 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
@@ -9,7 +9,9 @@ import Swal from "sweetalert2";
 
 const TeacherRequest = () => {
   const { user } = useAuth();
+  const QueryClient = useQueryClient();
 
+  //   approve teacher request
   const { mutate: approveTeacherRequest } = useMutation({
     mutationKey: ["approve-teacher-request"],
     mutationFn: async (id) => {
@@ -18,11 +20,13 @@ const TeacherRequest = () => {
     },
     onSuccess: () => {
       toast.success("Approved successfully!");
+      QueryClient.invalidateQueries(["get-teacher-request"]);
     },
     onError: () => {
       toast.error("Approval failed.");
     },
   });
+  // promote to teacher
   const { mutate: promoteToTeacher } = useMutation({
     mutationKey: ["update-role-teacher"],
     mutationFn: async (email) => {
@@ -30,6 +34,22 @@ const TeacherRequest = () => {
       return res.data;
     },
   });
+  //   reject teacher request
+  const { mutate: rejectTeacherRequest } = useMutation({
+    mutationKey: ["approve-teacher-request"],
+    mutationFn: async (id) => {
+      const res = await axiosSecure.patch(`/teacher-requests/reject/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success("Rejected successfully!");
+      QueryClient.invalidateQueries(["get-teacher-request"]);
+    },
+    onError: () => {
+      toast.error("Rejection failed.");
+    },
+  });
+  //   get teacher request
   const {
     data: teacherRequestData,
     isLoading,
@@ -56,7 +76,7 @@ const TeacherRequest = () => {
     );
   }
 
-  const handleApprove = async (id, email) => {
+  const handleApprove = (id, email) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -69,6 +89,22 @@ const TeacherRequest = () => {
       if (result.isConfirmed) {
         approveTeacherRequest(id);
         promoteToTeacher(email);
+      }
+    });
+  };
+
+  const handleReject = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        rejectTeacherRequest(id);
       }
     });
   };
@@ -112,7 +148,9 @@ const TeacherRequest = () => {
                     </div>
                   </>
                 ) : (
-                  "Approved"
+                  <p className="badge badge-error text-white font-semibold rounded-full">
+                    {data.status}
+                  </p>
                 )}
               </td>
               <td className="flex flex-col gap-3">
@@ -126,7 +164,8 @@ const TeacherRequest = () => {
                 </button>
                 <button
                   disabled={data.status === "rejected"}
-                  className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
+                  onClick={() => handleReject(data._id)}
+                  className={`btn btn-sm btn-error rounded-full text-white flex items-center gap-2`}
                 >
                   <FaTimesCircle className="text-lg" />
                   Reject
