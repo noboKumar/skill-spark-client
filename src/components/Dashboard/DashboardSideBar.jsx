@@ -7,7 +7,6 @@ import {
   FaUserCheck,
   FaUsers,
   FaRegUser,
-  FaUser,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { MdLibraryBooks } from "react-icons/md";
@@ -15,9 +14,12 @@ import Logo from "../UI/Logo";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import useRole from "../../hooks/useRole";
 
 const DashboardSideBar = () => {
   const { user, logOutUser } = useAuth();
+  const { role } = useRole(user?.email);
+
   const handleLogout = () => {
     Swal.fire({
       title: "Confirm Logout?",
@@ -43,42 +45,52 @@ const DashboardSideBar = () => {
         <ul className="menu text-lg font-semibold gap-2 lg:w-80">
           <Logo />
           <div className="divider my-0"></div>
-
+          
           {/* Student Menu */}
-          <li>
-            <NavLink to="/dashboard/my-enroll-class" end>
-              <FaBookOpen /> My Enroll Class
-            </NavLink>
-          </li>
+          {role === "student" && (
+            <li>
+              <NavLink to="/dashboard/my-enroll-class" end>
+                <FaBookOpen /> My Enroll Class
+              </NavLink>
+            </li>
+          )}
 
           {/* Teacher Menu */}
-          <li>
-            <NavLink to="/dashboard/add-class" end>
-              <FaChalkboardTeacher /> Add Class
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/my-class" end>
-              <MdLibraryBooks /> My Class
-            </NavLink>
-          </li>
+          {role === "teacher" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/add-class" end>
+                  <FaChalkboardTeacher /> Add Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/my-class" end>
+                  <MdLibraryBooks /> My Class
+                </NavLink>
+              </li>
+            </>
+          )}
 
           {/* Admin Menu */}
-          <li>
-            <NavLink to="/dashboard/teacher-request" end>
-              <FaUserCheck /> Teacher Request
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/users" end>
-              <FaUsers /> Users
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/all-classes" end>
-              <FaListAlt /> All Classes
-            </NavLink>
-          </li>
+          {role === "admin" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/teacher-request" end>
+                  <FaUserCheck /> Teacher Request
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/users" end>
+                  <FaUsers /> Users
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/all-classes" end>
+                  <FaListAlt /> All Classes
+                </NavLink>
+              </li>
+            </>
+          )}
 
           {/* Shared Menu */}
           <li>
