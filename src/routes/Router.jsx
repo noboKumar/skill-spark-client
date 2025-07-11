@@ -13,6 +13,8 @@ import AddClass from "../pages/Dashboard/Teacher/AddClass";
 import MyClass from "../pages/Dashboard/Teacher/MyClass";
 import TeacherRequest from "../pages/Dashboard/Admin/TeacherRequest";
 import Users from "../pages/Dashboard/Admin/Users";
+import AdminRoute from "./AdminRoute";
+import Unauthorized from "../pages/Unauthorized";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +63,7 @@ export const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
+      // Student Routes
       {
         path: "my-enroll-class",
         element: (
@@ -69,6 +72,7 @@ export const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
+      // Teacher Routes
       {
         path: "add-class",
         element: (
@@ -85,30 +89,35 @@ export const router = createBrowserRouter([
           </PrivateRouter>
         ),
       },
+      // Admin Routes
       {
         path: "teacher-request",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <TeacherRequest />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "users",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <Users />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
       {
         path: "all-classes",
         element: (
-          <PrivateRouter>
+          <AdminRoute>
             <AllClasses />
-          </PrivateRouter>
+          </AdminRoute>
         ),
       },
     ],
+  },
+  {
+    path: "/unauthorized",
+    Component: Unauthorized,
   },
 ]);
