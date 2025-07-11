@@ -16,6 +16,7 @@ import Users from "../pages/Dashboard/Admin/Users";
 import AdminRoute from "./AdminRoute";
 import Unauthorized from "../pages/Unauthorized";
 import TeacherRoute from "./TeacherRoute";
+import StudentRoute from "./StudentRoute";
 
 export const router = createBrowserRouter([
   {
@@ -68,9 +69,9 @@ export const router = createBrowserRouter([
       {
         path: "my-enroll-class",
         element: (
-          <PrivateRouter>
+          <StudentRoute>
             <MyEnrollClass />
-          </PrivateRouter>
+          </StudentRoute>
         ),
       },
       // Teacher Routes
