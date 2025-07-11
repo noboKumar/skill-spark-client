@@ -3,9 +3,9 @@ import { FaEnvelope, FaPhoneAlt, FaUserTag } from "react-icons/fa";
 import coverPhoto from "../../assets/online-education-cover.jpg";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
-import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 const UserProfile = () => {
+  // TODO: fix responsive issue
   const { user } = useAuth();
   const { role } = useRole(user?.email);
 
