@@ -20,3 +20,7 @@ export const uploadImage = async (imageFile) => {
   );
   return data.data.url;
 };
+
+export const axiosPublic = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
