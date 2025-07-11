@@ -1,4 +1,10 @@
 import axios from "axios";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
+// axios public req
+export const axiosPublic = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
 // set user role in DB
 export const saveUserInDb = async (user) => {
@@ -21,7 +27,8 @@ export const uploadImage = async (imageFile) => {
   return data.data.url;
 };
 
-// axios public req
-export const axiosPublic = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
+// post teacher data
+export const postTeacherRequest = async (teacherData) => {
+  const { data } = await axiosSecure.post("/teacher-requests", teacherData);
+  return data;
+};

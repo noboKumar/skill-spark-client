@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const TeachOnSkillSpark = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { user } = useAuth();
   const {
     register,
@@ -10,8 +14,26 @@ const TeachOnSkillSpark = () => {
     formState: { errors },
   } = useForm();
 
+  const { mutate: sendRequest, isPending } = useMutation({
+    mutationKey: ["teacher-request"],
+    mutationFn: async (formData) => {
+      const { data } = await axiosSecure.post("/teacher-requests", formData);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Request submitted!");
+      setIsSubmitted(true);
+    },
+    onError: () => {
+      toast.error("Submission failed.");
+    },
+  });
+
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
+    data.image = user?.photoURL;
+    data.email = user?.email;
+    sendRequest(data);
   };
   return (
     <div className="max-w-3xl mx-auto p-10 bg-base-200 shadow-lg rounded-xl border border-gray-300">
@@ -67,7 +89,9 @@ const TeachOnSkillSpark = () => {
             className="select select-bordered w-full bg-base-200"
             {...register("experience", { required: true })}
           >
-            <option disabled value="">Select Experience</option>
+            <option disabled value="">
+              Select Experience
+            </option>
             <option value="beginner">Beginner</option>
             <option value="mid-level">Mid-Level</option>
             <option value="experienced">Experienced</option>
@@ -121,8 +145,16 @@ const TeachOnSkillSpark = () => {
 
         {/* Submit Button */}
         <div className="pt-4 text-center">
-          <button type="submit" className="btn btn-primary px-10">
-            Submit for Review
+          <button
+            type="submit"
+            className="btn btn-primary px-10"
+            disabled={isPending}
+          >
+            {isSubmitted
+              ? "Request to another"
+              : isPending
+              ? "Submitting..."
+              : "Submit for Review"}
           </button>
         </div>
       </form>
