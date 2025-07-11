@@ -1,12 +1,35 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const TeacherRequest = () => {
   const { user } = useAuth();
+
+  const { mutate: approveTeacherRequest } = useMutation({
+    mutationKey: ["approve-teacher-request"],
+    mutationFn: async (id) => {
+      const res = await axiosSecure.patch(`/teacher-requests/approve/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      toast.success("Approved successfully!");
+    },
+    onError: () => {
+      toast.error("Approval failed.");
+    },
+  });
+  const { mutate: promoteToTeacher } = useMutation({
+    mutationKey: ["update-role-teacher"],
+    mutationFn: async (email) => {
+      const res = await axiosSecure.patch(`/user/role/${email}`);
+      return res.data;
+    },
+  });
   const {
     data: teacherRequestData,
     isLoading,
@@ -32,6 +55,24 @@ const TeacherRequest = () => {
       </div>
     );
   }
+
+  const handleApprove = async (id, email) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveTeacherRequest(id);
+        promoteToTeacher(email);
+      }
+    });
+  };
+
   return (
     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
       <table className="table">
@@ -75,11 +116,18 @@ const TeacherRequest = () => {
                 )}
               </td>
               <td className="flex flex-col gap-3">
-                <button className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2">
+                <button
+                  disabled={data.status === "rejected"}
+                  onClick={() => handleApprove(data._id, data.email)}
+                  className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2"
+                >
                   <FaCheckCircle className="text-lg" />
                   Approve
                 </button>
-                <button className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2">
+                <button
+                  disabled={data.status === "rejected"}
+                  className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
+                >
                   <FaTimesCircle className="text-lg" />
                   Reject
                 </button>
