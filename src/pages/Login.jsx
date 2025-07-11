@@ -2,15 +2,18 @@ import React from "react";
 import Lottie from "lottie-react";
 import { FaEye } from "react-icons/fa";
 import animationData from "../assets/Login-animation.json";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { saveUserInDb } from "../API/utils";
+import toast from "react-hot-toast";
+import useSaveUser from "../hooks/useSaveUser";
 
 const Login = () => {
-  const { googleSignIn } = useAuth();
   // TODO: add Password visibility toggle functionality
+  const { googleSignIn } = useAuth();
   const { loginUser } = useAuth();
+  const { mutate: saveUser } = useSaveUser();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -18,36 +21,42 @@ const Login = () => {
   } = useForm();
 
   // TODO: add swal and redirect after login
-  const handleLogin = (data) => {
-    loginUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
-        const userData = {
-          email: result.user.email,
-          displayName: result.user.displayName,
-          photoURL: result.user.photoURL,
-        };
-        saveUserInDb(userData);
-      })
-      .catch((error) => {
-        console.log(error);
+  const handleLogin = async (data) => {
+    const loginPromise = async () => {
+      const result = await loginUser(data.email, data.password);
+      const user = result.user;
+
+      await saveUser({
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
       });
+      navigate("/");
+    };
+
+    toast.promise(loginPromise(), {
+      loading: "Logging in...",
+      success: "Logged in successfully.",
+      error: "Login failed. Please try again.",
+    });
   };
 
-  const handleGoogleLogIn = () => {
-    googleSignIn()
-      .then((result) => {
-        console.log(result);
-        const userData = {
-          email: result.user.email,
-          displayName: result.user.displayName,
-          photoURL: result.user.photoURL,
-        };
-        saveUserInDb(userData);
-      })
-      .catch((error) => {
-        console.log(error);
+  const handleGoogleLogIn = async () => {
+    const googleLoginPromise = async () => {
+      const result = await googleSignIn();
+
+      await saveUser({
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL,
       });
+      navigate("/");
+    };
+    toast.promise(googleLoginPromise(), {
+      loading: "Logging in...",
+      success: "Logged in successfully.",
+      error: "Login failed. Please try again.",
+    });
   };
   return (
     <div>

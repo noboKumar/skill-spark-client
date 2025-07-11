@@ -73,6 +73,7 @@ const Register = () => {
         displayName: user.displayName,
         photoURL: user.photoURL,
       });
+      navigate("/");
     };
 
     toast.promise(googleRegisterPromise, {
