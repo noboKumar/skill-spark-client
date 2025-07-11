@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -18,8 +19,24 @@ const AuthProvider = ({ children }) => {
 
   //   On Auth State Changed
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
+        setUser(currentUser);
+
+        // get JWT token
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          {
+            email: currentUser?.email,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+      } else {
+        setUser(null);
+        localStorage.removeItem("access-token");
+      }
       setLoading(false);
     });
     return () => unsubscribe();
@@ -44,9 +61,9 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-//   update user state
+  //   update user state
   const updateUser = (userData) => {
-   return updateProfile(auth.currentUser, userData)
+    return updateProfile(auth.currentUser, userData);
   };
 
   const userInfo = {

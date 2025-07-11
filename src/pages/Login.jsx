@@ -10,6 +10,7 @@ import useSaveUser from "../hooks/useSaveUser";
 
 const Login = () => {
   // TODO: add Password visibility toggle functionality
+  // TODO: show error
   const { googleSignIn } = useAuth();
   const { loginUser } = useAuth();
   const { mutate: saveUser } = useSaveUser();
@@ -20,7 +21,6 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  // TODO: add swal and redirect after login
   const handleLogin = async (data) => {
     const loginPromise = async () => {
       const result = await loginUser(data.email, data.password);

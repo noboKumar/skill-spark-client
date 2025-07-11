@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
+  // TODO: show error
   const { createUser, googleSignIn, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
   const { mutate: saveUser } = useSaveUser();
@@ -19,8 +20,6 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  // TODO: add swal and redirect after registration
-  // TODO: use tanstack to post image
   const handleRegister = async (data) => {
     const registerPromise = async () => {
       try {
