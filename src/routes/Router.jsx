@@ -29,7 +29,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/teach-on-skill-spark",
-        Component: TeachOnSkillSpark,
+        element: (
+          <PrivateRouter>
+            <TeachOnSkillSpark />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/login",
@@ -51,31 +55,59 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: UserProfile,
+        element: (
+          <PrivateRouter>
+            <UserProfile />
+          </PrivateRouter>
+        ),
       },
       {
         path: "my-enroll-class",
-        Component: MyEnrollClass,
+        element: (
+          <PrivateRouter>
+            <MyEnrollClass />
+          </PrivateRouter>
+        ),
       },
       {
         path: "add-class",
-        Component: AddClass,
+        element: (
+          <PrivateRouter>
+            <AddClass />
+          </PrivateRouter>
+        ),
       },
       {
         path: "my-class",
-        Component: MyClass,
+        element: (
+          <PrivateRouter>
+            <MyClass />
+          </PrivateRouter>
+        ),
       },
       {
         path: "teacher-request",
-        Component: TeacherRequest,
+        element: (
+          <PrivateRouter>
+            <TeacherRequest />
+          </PrivateRouter>
+        ),
       },
       {
         path: "users",
-        Component: Users,
+        element: (
+          <PrivateRouter>
+            <Users />
+          </PrivateRouter>
+        ),
       },
       {
         path: "all-classes",
-        Component: AllClasses,
+        element: (
+          <PrivateRouter>
+            <AllClasses />
+          </PrivateRouter>
+        ),
       },
     ],
   },

@@ -18,9 +18,11 @@ const NavBar = () => {
       <li>
         <NavLink to="/all-classes">All Classes</NavLink>
       </li>
-      <li>
-        <NavLink to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
+        </li>
+      )}
     </>
   );
   return (
