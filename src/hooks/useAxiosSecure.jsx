@@ -5,7 +5,15 @@ import { useNavigate } from "react-router";
 
 export const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  withCredentials: true,
+});
+
+// ✅ Add token to every request
+axiosSecure.interceptors.request.use((config) => {
+  const token = localStorage.getItem("access-token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 const useAxiosSecure = () => {
@@ -26,7 +34,7 @@ const useAxiosSecure = () => {
     );
 
     return () => {
-      axiosSecure.interceptors.response.eject(interceptor); // Clean up on unmount
+      axiosSecure.interceptors.response.eject(interceptor);
     };
   }, [logOut, navigate]);
 

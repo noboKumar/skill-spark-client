@@ -24,15 +24,13 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser);
 
         // get JWT token
-        await axios.post(
+        const { data } = await axios.post(
           `${import.meta.env.VITE_API_URL}/jwt`,
           {
             email: currentUser?.email,
-          },
-          {
-            withCredentials: true,
           }
         );
+        localStorage.setItem("access-token", data.token);
       } else {
         setUser(null);
         localStorage.removeItem("access-token");

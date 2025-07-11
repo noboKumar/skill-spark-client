@@ -2,9 +2,12 @@ import React from "react";
 import { FaEnvelope, FaPhoneAlt, FaUserTag } from "react-icons/fa";
 import coverPhoto from "../../assets/online-education-cover.jpg";
 import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
+import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
 const UserProfile = () => {
   const { user } = useAuth();
+  const { role } = useRole(user?.email);
 
   return (
     <div className="border-2 border-gray-300 rounded-xl p-10 bg-base-100">
@@ -28,7 +31,7 @@ const UserProfile = () => {
           <div className="mt-4 flex items-center justify-center gap-2 flex-wrap">
             <h2 className="text-xl font-semibold">{user?.displayName}</h2>
             <div className="badge badge-primary flex items-center gap-1">
-              <FaUserTag /> Student
+              <FaUserTag /> {role}
             </div>
           </div>
 
