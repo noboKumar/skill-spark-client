@@ -32,7 +32,6 @@ const TeacherRequest = () => {
       </div>
     );
   }
-  console.log(teacherRequestData);
   return (
     <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
       <table className="table">
@@ -51,8 +50,7 @@ const TeacherRequest = () => {
         </thead>
         <tbody>
           {teacherRequestData.map((data, index) => (
-            <tr>
-              {/* # */}
+            <tr key={data._id}>
               <td>{index + 1}</td>
               <td>
                 <img className="w-44 rounded-2xl" src={data.image} alt="" />
@@ -64,7 +62,7 @@ const TeacherRequest = () => {
               <td>
                 {data.status === "pending" ? (
                   <>
-                    <div className="badge badge-secondary text-[var(--color-text)] font-semibold">
+                    <div className="badge badge-secondary text-[var(--color-text)] font-semibold rounded-full">
                       <div className="inline-grid *:[grid-area:1/1]">
                         <div className="status status-error animate-ping"></div>
                         <div className="status status-error"></div>
@@ -77,11 +75,11 @@ const TeacherRequest = () => {
                 )}
               </td>
               <td className="flex flex-col gap-3">
-                <button className="btn btn-sm btn-success text-white flex items-center gap-2">
+                <button className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2">
                   <FaCheckCircle className="text-lg" />
                   Approve
                 </button>
-                <button className="btn btn-sm btn-error text-white flex items-center gap-2">
+                <button className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2">
                   <FaTimesCircle className="text-lg" />
                   Reject
                 </button>
