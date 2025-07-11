@@ -1,15 +1,19 @@
 import Lottie from "lottie-react";
 import { FaEye } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import animationData from "../assets/register-animation.json";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import { saveUserInDb } from "../API/utils";
+import useSaveUser from "../hooks/useSaveUser";
+import toast from "react-hot-toast";
 
 const Register = () => {
   // TODO: add Password visibility toggle functionality
   const { createUser, googleSignIn, setUser, updateUser } = useAuth();
+  const navigate = useNavigate();
+  const { mutate: saveUser } = useSaveUser();
   const {
     register,
     handleSubmit,
@@ -17,56 +21,57 @@ const Register = () => {
   } = useForm();
 
   // TODO: add swal and redirect after registration
-  const handleRegister = (data) => {
-    const imageFile = data.image[0]; // react-hook-form returns FileList
+  // TODO: use tanstack to post image
+  const handleRegister = async (data) => {
+    const registerPromise = async () => {
+      try {
+        // Upload image to imgbb
+        const imageFile = data.image[0];
+        const formData = new FormData();
+        formData.append("image", imageFile);
 
-    const formData = new FormData();
-    formData.append("image", imageFile);
+        const imageRes = await axios.post(
+          `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_IMGBB_API_KEY
+          }`,
+          formData
+        );
+        const imageUrl = imageRes.data.data.url;
 
-    axios
-      .post(
-        `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_IMGBB_API_KEY
-        }`,
-        formData
-      )
-      .then((res) => {
-        const imageUrl = res.data.data.url;
+        // Firebase: create user
+        const result = await createUser(data.email, data.password);
+        const user = result.user;
 
-        // Create user in Firebase
-        createUser(data.email, data.password)
-          .then((result) => {
-            const user = result.user;
-            console.log({ user, data });
+        // tanStack mutation to save role in DB
+        await saveUser({
+          email: data.email,
+          displayName: data.username,
+          photoURL: imageUrl,
+        });
 
-            saveUserInDb({
-              email: data.email,
-              displayName: data.username,
-              photoURL: imageUrl,
-            });
+        // firebase: update profile image and name
+        await updateUser({
+          displayName: data.username,
+          photoURL: imageUrl,
+        });
 
-            updateUser({
-              displayName: data.username,
-              photoURL: imageUrl,
-            })
-              .then(() => {
-                setUser({
-                  ...user,
-                  displayName: data.username,
-                  photoURL: imageUrl,
-                });
-              })
-              .catch((err) => {
-                console.error("Error updating profile:", err);
-              });
-          })
-          .catch((err) => {
-            console.error("Error creating user:", err);
-          });
-      })
-      .catch((err) => {
-        console.error("Image upload failed:", err);
-      });
+        setUser({
+          ...user,
+          displayName: data.username,
+          photoURL: imageUrl,
+        });
+        navigate("/");
+      } catch (error) {
+        console.error("Registration error:", error);
+        throw error;
+      }
+    };
+
+    toast.promise(registerPromise(), {
+      loading: "Creating your account...",
+      success: "Welcome! Your account has been created.",
+      error: "Registration failed. Please try again.",
+    });
   };
 
   const handleGoogleLogIn = () => {
