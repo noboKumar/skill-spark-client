@@ -148,7 +148,13 @@ const TeacherRequest = () => {
                     </div>
                   </>
                 ) : (
-                  <p className="badge badge-error text-white font-semibold rounded-full">
+                  <p
+                    className={`badge ${
+                      data.status === "approved"
+                        ? "badge-success"
+                        : "badge-error"
+                    } text-white font-semibold rounded-full`}
+                  >
                     {data.status}
                   </p>
                 )}
@@ -165,7 +171,7 @@ const TeacherRequest = () => {
                 <button
                   disabled={data.status === "rejected"}
                   onClick={() => handleReject(data._id)}
-                  className={`btn btn-sm btn-error rounded-full text-white flex items-center gap-2`}
+                  className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
                 >
                   <FaTimesCircle className="text-lg" />
                   Reject
