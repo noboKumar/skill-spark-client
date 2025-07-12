@@ -209,7 +209,7 @@ const TeacherRequest = () => {
       </div>
       <Pagination
         totalItems={teacherRequestData?.length}
-        itemsPerPage={10}
+        itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       ></Pagination>
