@@ -6,11 +6,13 @@ import { axiosSecure } from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import useStatus from "../hooks/useStatus";
 
 const TeachOnSkillSpark = () => {
-  // TODO:add if rejected change button text to (request to another)
   const { user } = useAuth();
   const { role } = useRole();
+  const { requestStatus } = useStatus();
+  console.log(requestStatus);
   const {
     register,
     handleSubmit,
@@ -35,6 +37,9 @@ const TeachOnSkillSpark = () => {
   const onSubmit = (data) => {
     data.image = user?.photoURL;
     data.email = user?.email;
+    if (requestStatus?.status === "rejected") {
+      data.status = "pending";
+    }
     sendRequest(data);
     reset();
   };
@@ -131,7 +136,7 @@ const TeachOnSkillSpark = () => {
           </label>
           <input
             type="text"
-            placeholder="Ex: Complete React Bootcamp"
+            placeholder="Ex: Complete React BootCamp"
             className="input input-bordered w-full bg-base-200"
             {...register("title", { required: true })}
           />
@@ -171,7 +176,11 @@ const TeachOnSkillSpark = () => {
             className="btn btn-primary px-10"
             disabled={isPending}
           >
-            {isPending ? "Submitting..." : "Submit for Review"}
+            {isPending
+              ? "Pending..."
+              : requestStatus?.status === "rejected"
+              ? "Request Again"
+              : "Submit for Review"}
           </button>
         </div>
       </form>

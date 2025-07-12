@@ -76,15 +76,17 @@ const TeacherRequest = () => {
     );
   }
 
+  console.log(teacherRequestData);
+
   const handleApprove = (id, email) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "Approve this request?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Approve!",
     }).then((result) => {
       if (result.isConfirmed) {
         approveTeacherRequest(id);
@@ -96,12 +98,12 @@ const TeacherRequest = () => {
   const handleReject = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "Reject this request?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Reject!",
     }).then((result) => {
       if (result.isConfirmed) {
         rejectTeacherRequest(id);
@@ -126,7 +128,7 @@ const TeacherRequest = () => {
           </tr>
         </thead>
         <tbody>
-          {teacherRequestData.map((data, index) => (
+          {teacherRequestData?.map?.((data, index) => (
             <tr key={data._id}>
               <td>{index + 1}</td>
               <td>
