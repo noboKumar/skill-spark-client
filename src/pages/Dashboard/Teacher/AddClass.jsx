@@ -1,8 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import useUploadImage from "../../../hooks/useUploadImage";
+import { useMutation } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AddClass = () => {
+  const { mutate: uploadImage } = useUploadImage();
   const { user } = useAuth();
   const {
     register,
@@ -11,8 +16,28 @@ const AddClass = () => {
     reset,
   } = useForm();
 
+  const { mutate: addClassRequest } = useMutation({
+    mutationKey: ["addClass"],
+    mutationFn: async (formDate) => {
+      const { data } = await axiosSecure.post("/class-requests", formDate);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Class added!");
+    },
+    onError: () => {
+      toast.error("Submission failed.");
+    },
+  });
+
   const onSubmit = (data) => {
+    const image = data.image[0];
+    uploadImage(image);
+    data.image = image.name;
     console.log(data);
+    addClassRequest(data);
+
+    // reset form after submission
     reset();
   };
   return (
