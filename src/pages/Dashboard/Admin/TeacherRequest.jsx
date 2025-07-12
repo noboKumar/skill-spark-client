@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
@@ -6,10 +6,13 @@ import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaCheck, FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Pagination from "../../../components/UI/Pagination";
 
 const TeacherRequest = () => {
   const { user } = useAuth();
   const QueryClient = useQueryClient();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   //   approve teacher request
   const { mutate: approveTeacherRequest } = useMutation({
@@ -76,8 +79,6 @@ const TeacherRequest = () => {
     );
   }
 
-  console.log(teacherRequestData);
-
   const handleApprove = (id, email) => {
     Swal.fire({
       title: "Are you sure?",
@@ -111,92 +112,107 @@ const TeacherRequest = () => {
     });
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = teacherRequestData?.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
   return (
-    <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Experience</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teacherRequestData?.map?.((data, index) => (
-            <tr key={data._id}>
-              <td>{index + 1}</td>
-              <td>
-                <img className="w-44 rounded-2xl" src={data.image} alt="" />
-              </td>
-              <td>{data.name}</td>
-              <td>{data.experience}</td>
-              <td>{data.title}</td>
-              <td>{data.category}</td>
-              <td>
-                {data.status === "pending" ? (
-                  <>
-                    <div className="badge badge-secondary text-[var(--color-text)] font-semibold rounded-full">
-                      <div className="inline-grid *:[grid-area:1/1]">
-                        <div className="status status-error animate-ping"></div>
-                        <div className="status status-error"></div>
-                      </div>{" "}
-                      {data.status}
-                    </div>
-                  </>
-                ) : (
-                  <p
-                    className={`badge text-white font-semibold rounded-full flex items-center gap-1 ${
-                      data.status === "approved"
-                        ? "badge-success"
-                        : "badge-error"
-                    }`}
-                  >
-                    {data.status === "approved" ? (
-                      <>
-                        <FaCheck className="text-sm" />
-                        Approved
-                      </>
-                    ) : (
-                      <>
-                        <FaTimes className="text-sm" />
-                        Rejected
-                      </>
-                    )}
-                  </p>
-                )}
-              </td>
-              <td className="flex flex-col gap-3">
-                <button
-                  disabled={
-                    data.status === "rejected" || data.status === "approved"
-                  }
-                  onClick={() => handleApprove(data._id, data.email)}
-                  className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2"
-                >
-                  <FaCheckCircle className="text-lg" />
-                  Approve
-                </button>
-                <button
-                  disabled={
-                    data.status === "rejected" || data.status === "approved"
-                  }
-                  onClick={() => handleReject(data._id)}
-                  className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
-                >
-                  <FaTimesCircle className="text-lg" />
-                  Reject
-                </button>
-              </td>
+    <div>
+      <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Experience</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentItems?.map?.((data, index) => (
+              <tr key={data._id}>
+                <td>{index + 1}</td>
+                <td>
+                  <img className="w-44 rounded-2xl" src={data.image} alt="" />
+                </td>
+                <td>{data.name}</td>
+                <td>{data.experience}</td>
+                <td>{data.title}</td>
+                <td>{data.category}</td>
+                <td>
+                  {data.status === "pending" ? (
+                    <>
+                      <div className="badge badge-secondary text-[var(--color-text)] font-semibold rounded-full">
+                        <div className="inline-grid *:[grid-area:1/1]">
+                          <div className="status status-error animate-ping"></div>
+                          <div className="status status-error"></div>
+                        </div>{" "}
+                        {data.status}
+                      </div>
+                    </>
+                  ) : (
+                    <p
+                      className={`badge text-white font-semibold rounded-full flex items-center gap-1 ${
+                        data.status === "approved"
+                          ? "badge-success"
+                          : "badge-error"
+                      }`}
+                    >
+                      {data.status === "approved" ? (
+                        <>
+                          <FaCheck className="text-sm" />
+                          Approved
+                        </>
+                      ) : (
+                        <>
+                          <FaTimes className="text-sm" />
+                          Rejected
+                        </>
+                      )}
+                    </p>
+                  )}
+                </td>
+                <td className="flex flex-col gap-3">
+                  <button
+                    disabled={
+                      data.status === "rejected" || data.status === "approved"
+                    }
+                    onClick={() => handleApprove(data._id, data.email)}
+                    className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2"
+                  >
+                    <FaCheckCircle className="text-lg" />
+                    Approve
+                  </button>
+                  <button
+                    disabled={
+                      data.status === "rejected" || data.status === "approved"
+                    }
+                    onClick={() => handleReject(data._id)}
+                    className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
+                  >
+                    <FaTimesCircle className="text-lg" />
+                    Reject
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Pagination
+        totalItems={teacherRequestData?.length}
+        itemsPerPage={10}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      ></Pagination>
     </div>
   );
 };
