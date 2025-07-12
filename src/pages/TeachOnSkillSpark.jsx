@@ -12,7 +12,6 @@ const TeachOnSkillSpark = () => {
   const { user } = useAuth();
   const { role } = useRole();
   const { requestStatus } = useStatus();
-  console.log(requestStatus);
   const {
     register,
     handleSubmit,

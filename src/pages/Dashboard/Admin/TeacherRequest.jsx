@@ -163,7 +163,9 @@ const TeacherRequest = () => {
               </td>
               <td className="flex flex-col gap-3">
                 <button
-                  disabled={data.status === "rejected"}
+                  disabled={
+                    data.status === "rejected" || data.status === "approved"
+                  }
                   onClick={() => handleApprove(data._id, data.email)}
                   className="btn btn-sm btn-success rounded-full text-white flex items-center gap-2"
                 >
@@ -171,7 +173,9 @@ const TeacherRequest = () => {
                   Approve
                 </button>
                 <button
-                  disabled={data.status === "rejected"}
+                  disabled={
+                    data.status === "rejected" || data.status === "approved"
+                  }
                   onClick={() => handleReject(data._id)}
                   className="btn btn-sm btn-error rounded-full text-white flex items-center gap-2"
                 >
