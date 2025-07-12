@@ -1,14 +1,16 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import Pagination from "../../../components/UI/Pagination";
 import { FaUserShield } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Users = () => {
   const QueryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  
   const {
     data: users,
     isLoading,
@@ -20,16 +22,48 @@ const Users = () => {
       return data;
     },
   });
-  console.log(users);
+
+  const { mutate: makeAdmin } = useMutation({
+    mutationKey: ["make-admin"],
+    mutationFn: async (email) => {
+      const res = await axiosSecure.patch(`/user/make-admin/${email}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries(["users"]);
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  const handleMakeAdmin = (email) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Make this user an admin?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        makeAdmin(email);
+      }
+    });
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = users?.slice(indexOfFirstItem, indexOfLastItem);
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (error) {
     return <h1>{error.message}</h1>;
   }
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users?.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
@@ -72,7 +106,11 @@ const Users = () => {
                   </span>
                 </td>
                 <td className="text-center">
-                  <button className="btn bg-indigo-500 text-white rounded-full">
+                  <button
+                    disabled={data.role === "admin"}
+                    onClick={() => handleMakeAdmin(data.email)}
+                    className="btn bg-indigo-500 text-white rounded-full"
+                  >
                     <FaUserShield className="text-lg" />
                     Make Admin
                   </button>
