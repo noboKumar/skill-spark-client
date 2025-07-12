@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheck, FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
@@ -151,13 +151,23 @@ const TeacherRequest = () => {
                   </>
                 ) : (
                   <p
-                    className={`badge ${
+                    className={`badge text-white font-semibold rounded-full flex items-center gap-1 ${
                       data.status === "approved"
                         ? "badge-success"
                         : "badge-error"
-                    } text-white font-semibold rounded-full`}
+                    }`}
                   >
-                    {data.status}
+                    {data.status === "approved" ? (
+                      <>
+                        <FaCheck className="text-sm" />
+                        Approved
+                      </>
+                    ) : (
+                      <>
+                        <FaTimes className="text-sm" />
+                        Rejected
+                      </>
+                    )}
                   </p>
                 )}
               </td>
