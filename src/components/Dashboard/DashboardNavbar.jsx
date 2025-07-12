@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 const DashboardNavbar = () => {
   const { user } = useAuth();
   return (
-    <div className="bg-base-100 shadow-sm border-b-2 border-gray-300">
+    <div className="bg-base-100 shadow-sm border-b-2 border-gray-300 sticky top-0">
       <div className="flex justify-between items-center p-4 w-11/12 mx-auto">
         <h1 className="text-3xl font-bold my-4">Dashboard</h1>
         <div className="flex items-center gap-4">
