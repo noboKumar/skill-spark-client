@@ -8,6 +8,7 @@ import {
   FaUsers,
   FaRegUser,
   FaSignOutAlt,
+  FaRegClipboard,
 } from "react-icons/fa";
 import { MdLibraryBooks } from "react-icons/md";
 import Logo from "../UI/Logo";
@@ -45,14 +46,21 @@ const DashboardSideBar = () => {
         <ul className="menu text-lg font-semibold gap-2 lg:w-80">
           <Logo />
           <div className="divider my-0"></div>
-          
+
           {/* Student Menu */}
           {role === "student" && (
-            <li>
-              <NavLink to="/dashboard/my-enroll-class" end>
-                <FaBookOpen /> My Enroll Class
-              </NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/dashboard/my-enroll-class" end>
+                  <FaBookOpen /> My Enroll Class
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/my-request" end>
+                  <FaRegClipboard /> My Request
+                </NavLink>
+              </li>
+            </>
           )}
 
           {/* Teacher Menu */}

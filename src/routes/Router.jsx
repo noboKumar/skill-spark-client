@@ -17,6 +17,7 @@ import AdminRoute from "./AdminRoute";
 import Unauthorized from "../pages/Unauthorized";
 import TeacherRoute from "./TeacherRoute";
 import StudentRoute from "./StudentRoute";
+import MyRequest from "../pages/Dashboard/Student/MyRequest";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,14 @@ export const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <MyEnrollClass />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "my-request",
+        element: (
+          <StudentRoute>
+            <MyRequest />
           </StudentRoute>
         ),
       },
