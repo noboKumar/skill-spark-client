@@ -4,9 +4,13 @@ import useAuth from "../hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import useRole from "../hooks/useRole";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 const TeachOnSkillSpark = () => {
+  // TODO:add if rejected change button text to (request to another)
   const { user } = useAuth();
+  const { role } = useRole();
   const {
     register,
     handleSubmit,
@@ -34,6 +38,24 @@ const TeachOnSkillSpark = () => {
     sendRequest(data);
     reset();
   };
+
+  if (role === "teacher") {
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center bg-success/10 border border-success p-6 rounded-xl shadow-sm mt-10 max-w-xl mx-auto">
+          <FaChalkboardTeacher className="text-4xl text-success mb-3" />
+          <h2 className="text-xl font-semibold text-success">
+            You're already a teacher!
+          </h2>
+          <p className="text-lg text-success-content mt-2 text-center">
+            You already have teaching access on{" "}
+            <span className="font-bold">SkillSpark</span>. Feel free to manage
+            your courses or view student progress from your dashboard.
+          </p>
+        </div>
+      </>
+    );
+  }
   return (
     <div className="max-w-3xl mx-auto p-10 bg-base-200 shadow-lg rounded-xl border border-gray-300">
       <h1 className="text-3xl font-bold text-center mb-6 text-primary">
