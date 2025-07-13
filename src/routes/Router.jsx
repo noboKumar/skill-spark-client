@@ -19,6 +19,7 @@ import TeacherRoute from "./TeacherRoute";
 import StudentRoute from "./StudentRoute";
 import MyRequest from "../pages/Dashboard/Student/MyRequest";
 import AllClassesRequest from "../pages/Dashboard/Admin/AllClassesRequest";
+import ClassDetails from "../pages/ClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ export const router = createBrowserRouter([
       {
         path: "/all-classes",
         Component: AllClasses,
+      },
+      {
+        path: "/classes/:id",
+        element: (
+          <PrivateRouter>
+            <ClassDetails />
+          </PrivateRouter>
+        ),
       },
       {
         path: "/teach-on-skill-spark",

@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { axiosSecure } from "../hooks/useAxiosSecure";
 import Pagination from "../components/UI/Pagination";
+import { Link } from "react-router";
+import { axiosPublic } from "../API/utils";
 
 const AllClasses = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,7 +10,7 @@ const AllClasses = () => {
   const { data: allClasses } = useQuery({
     queryKey: ["allClasses"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/accepted-classes");
+      const { data } = await axiosPublic.get("/accepted-classes");
       return data;
     },
   });
@@ -57,11 +58,11 @@ const AllClasses = () => {
                 </p>
               </div>
 
-              <div className="pt-4">
+              <Link to={`/classes/${data._id}`} className="pt-4">
                 <button className="w-full btn btn-primary rounded-md">
                   Enroll Now
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
         ))}
