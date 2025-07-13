@@ -18,6 +18,7 @@ import Unauthorized from "../pages/Unauthorized";
 import TeacherRoute from "./TeacherRoute";
 import StudentRoute from "./StudentRoute";
 import MyRequest from "../pages/Dashboard/Student/MyRequest";
+import AllClassesRequest from "../pages/Dashboard/Admin/AllClassesRequest";
 
 export const router = createBrowserRouter([
   {
@@ -118,10 +119,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "all-classes",
+        path: "all-classes-request",
         element: (
           <AdminRoute>
-            <AllClasses />
+            <AllClassesRequest />
           </AdminRoute>
         ),
       },

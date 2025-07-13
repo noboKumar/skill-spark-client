@@ -102,7 +102,7 @@ const MyClass = () => {
             </figure>
             <div className="card-body space-y-2">
               <h2 className="card-title text-xl">{data.title}</h2>
-              <p className="text-sm">{data.description}</p>
+              <p className="text-sm line-clamp-4">{data.description}</p>
               <p>
                 <span className="font-semibold">Name:</span> {data.name}
               </p>

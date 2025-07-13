@@ -93,7 +93,7 @@ const DashboardSideBar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/all-classes" end>
+                <NavLink to="/dashboard/all-classes-request" end>
                   <FaListAlt /> All Classes
                 </NavLink>
               </li>
