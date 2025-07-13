@@ -14,7 +14,6 @@ const AllClasses = () => {
       return data;
     },
   });
-  console.log(allClasses);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = allClasses?.slice(indexOfFirstItem, indexOfLastItem);

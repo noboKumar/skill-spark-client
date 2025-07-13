@@ -131,6 +131,7 @@ const AllClassesRequest = () => {
                 </td>
                 <td className="text-center">
                   <button
+                    disabled={data.status !== "pending"}
                     onClick={() => handleApproved(data._id)}
                     className="btn btn-sm btn-success text-white"
                   >
@@ -138,6 +139,7 @@ const AllClassesRequest = () => {
                     Approve
                   </button>
                   <button
+                    disabled={data.status !== "pending"}
                     onClick={() => handleRejected(data._id)}
                     className="btn btn-sm btn-error text-white ml-2"
                   >
