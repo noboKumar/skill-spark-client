@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Lottie from "lottie-react";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import animationData from "../assets/Login-animation.json";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../hooks/useAuth";
@@ -14,6 +14,7 @@ const Login = () => {
   const { googleSignIn } = useAuth();
   const { loginUser } = useAuth();
   const { mutate: saveUser } = useSaveUser();
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -84,6 +85,11 @@ const Login = () => {
                 placeholder="user@example.com"
                 className="input w-full"
               />
+              {errors.email && (
+                <span className="text-error text-sm">
+                  Please Enter Your Email
+                </span>
+              )}
             </div>
 
             {/* Password */}
@@ -94,12 +100,23 @@ const Login = () => {
               <div className="relative">
                 <input
                   {...register("password", { required: true })}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="MySecureP@ss123"
                   className="input w-full"
                 />
-                <FaEye className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
+                <button
+                  className="absolute top-1/2 right-3 -translate-y-1/2 z-10 text-gray-500 cursor-pointer"
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
               </div>
+              {errors.password && (
+                <span className="text-error text-sm">
+                  Please Enter Your Password
+                </span>
+              )}
             </div>
 
             {/* Register button */}
@@ -109,9 +126,6 @@ const Login = () => {
             >
               Login
             </button>
-            {(errors.email || errors.password) && (
-              <span className="text-error">All fields are required</span>
-            )}
 
             {/* Divider + Google button */}
             <div className="divider">Or continue with</div>
