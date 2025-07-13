@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import animationData from "../assets/register-animation.json";
 import { useForm } from "react-hook-form";
@@ -7,12 +7,12 @@ import useAuth from "../hooks/useAuth";
 import { uploadImage } from "../API/utils";
 import useSaveUser from "../hooks/useSaveUser";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Register = () => {
-  // TODO: add Password visibility toggle functionality
-  // TODO: show error
   const { createUser, googleSignIn, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const { mutate: saveUser } = useSaveUser();
   const {
     register,
@@ -86,10 +86,12 @@ const Register = () => {
     <div>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
         {/* Placeholder image instead of animation */}
-        <Lottie animationData={animationData} />
+        <div>
+          <Lottie animationData={animationData} />
+        </div>
 
         {/* Form */}
-        <div className="space-y-5">
+        <div className="space-y-5 md:min-w-xl">
           <h1 className="md:text-4xl text-xl font-bold">Create an Account</h1>
 
           <form onSubmit={handleSubmit(handleRegister)} className="space-y-5">
@@ -104,6 +106,11 @@ const Register = () => {
                 placeholder="John Doe"
                 className="input w-full"
               />
+              {errors.username && (
+                <span className="text-error text-sm">
+                  Please Enter Your Username
+                </span>
+              )}
             </div>
 
             {/* Photo input */}
@@ -114,8 +121,13 @@ const Register = () => {
               <input
                 {...register("image", { required: true })}
                 type="file"
-                className="file-input"
+                className="file-input w-full"
               />
+              {errors.image && (
+                <span className="text-error text-sm">
+                  Please Upload Your Profile Photo
+                </span>
+              )}
             </div>
 
             {/* Email */}
@@ -129,6 +141,11 @@ const Register = () => {
                 placeholder="user@example.com"
                 className="input w-full"
               />
+              {errors.email && (
+                <span className="text-error text-sm">
+                  Please Enter Your Email
+                </span>
+              )}
             </div>
 
             {/* Password */}
@@ -139,11 +156,22 @@ const Register = () => {
               <div className="relative">
                 <input
                   {...register("password", { required: true })}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="MySecureP@ss123"
                   className="input w-full"
                 />
-                <FaEye className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
+                <button
+                  className="absolute top-1/2 right-3 -translate-y-1/2 z-10 text-gray-500 cursor-pointer"
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+                {errors.password && (
+                  <span className="text-error text-sm">
+                    Please Enter Your Password
+                  </span>
+                )}
               </div>
             </div>
 
@@ -154,9 +182,6 @@ const Register = () => {
             >
               Register
             </button>
-            {(errors.username || errors.email || errors.password) && (
-              <span className="text-error">All fields are required</span>
-            )}
 
             {/* Divider + Google button */}
             <div className="divider">Or continue with</div>

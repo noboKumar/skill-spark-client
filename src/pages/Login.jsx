@@ -9,8 +9,6 @@ import toast from "react-hot-toast";
 import useSaveUser from "../hooks/useSaveUser";
 
 const Login = () => {
-  // TODO: add Password visibility toggle functionality
-  // TODO: show error
   const { googleSignIn } = useAuth();
   const { loginUser } = useAuth();
   const { mutate: saveUser } = useSaveUser();
