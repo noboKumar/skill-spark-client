@@ -1,13 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import useUploadImage from "../../../hooks/useUploadImage";
 import { useMutation } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { uploadImage } from "../../../API/utils";
 
 const AddClass = () => {
-  const { mutate: uploadImage } = useUploadImage();
   const { user } = useAuth();
   const {
     register,
@@ -30,15 +29,27 @@ const AddClass = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    const image = data.image[0];
-    uploadImage(image);
-    data.image = image.name;
-    console.log(data);
-    addClassRequest(data);
+  const onSubmit = async (data) => {
+    try {
+      const imageFile = data.image[0];
+      if (!imageFile) {
+        console.error("No image selected");
+        return;
+      }
+      const imageUrl = await uploadImage(imageFile);
 
-    // reset form after submission
-    reset();
+      data.image = imageUrl;
+      data.email = user?.email;
+      data.name = user?.displayName;
+      data.status = "pending";
+      
+      addClassRequest(data);
+
+      // reset form after submission
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="max-w-3xl mx-auto bg-base-200 shadow-lg rounded-xl p-10 mt-8">
