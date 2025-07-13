@@ -44,8 +44,10 @@ const CheckOutForm = ({ price, setIsOpen }) => {
     if (error) {
       setError(error.message);
     } else if (paymentIntent.status === "succeeded") {
+      const transactionId = paymentIntent.id;
       setIsOpen(false);
       toast.success("Payment successful!");
+      console.log(transactionId);
     }
     setProcessing(false);
   };

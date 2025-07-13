@@ -129,7 +129,7 @@ const AllClassesRequest = () => {
                     {data.status}
                   </span>
                 </td>
-                <td className="text-center">
+                <td className="text-center flex">
                   <button
                     disabled={data.status !== "pending"}
                     onClick={() => handleApproved(data._id)}

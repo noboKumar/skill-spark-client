@@ -45,6 +45,7 @@ const AddClass = () => {
       data.image = imageUrl;
       data.email = user?.email;
       data.name = user?.displayName;
+      data.total_enrollment = 0;
       data.status = "pending";
 
       addClassRequest(data);

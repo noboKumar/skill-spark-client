@@ -37,6 +37,7 @@ const TeachOnSkillSpark = () => {
   const onSubmit = (data) => {
     data.image = user?.photoURL;
     data.email = user?.email;
+    data.name = user?.displayName;
     if (requestStatus?.status === "rejected") {
       data.status = "pending";
     }
