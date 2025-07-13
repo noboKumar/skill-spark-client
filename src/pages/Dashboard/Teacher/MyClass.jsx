@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import {
   FaChalkboardTeacher,
@@ -11,11 +11,15 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
 import UpdateMyClassModal from "./UpdateMyClassModal";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const MyClass = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [classId, setClassId] = useState(null);
+  const queryClient = useQueryClient();
+
   const { data: myClasses } = useQuery({
     queryKey: ["my-classes"],
     queryFn: async () => {
@@ -23,6 +27,38 @@ const MyClass = () => {
       return data;
     },
   });
+
+  const { mutate: deleteClass } = useMutation({
+    mutationKey: ["delete-class"],
+    mutationFn: async (id) => {
+      const { data } = await axiosSecure.delete(`/my-class/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["my-classes"]);
+      toast.success("Class deleted successfully!");
+    },
+    onError: (error) => {
+      console.error("Error deleting class:", error);
+      toast.error("Failed to delete class.");
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this class?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteClass(id);
+      }
+    });
+  };
 
   if (!myClasses || myClasses.length === 0) {
     return (
@@ -100,11 +136,17 @@ const MyClass = () => {
                   <FaEdit />
                   Update
                 </button>
-                <button className="btn btn-sm btn-error text-white flex items-center gap-1 rounded-full">
+                <button
+                  onClick={() => handleDelete(data._id)}
+                  className="btn btn-sm btn-error text-white flex items-center gap-1 rounded-full"
+                >
                   <FaTrashAlt />
                   Delete
                 </button>
-                <button className="btn btn-sm btn-primary flex items-center gap-1 rounded-full">
+                <button
+                  disabled={data.status !== "approved"}
+                  className="btn btn-sm btn-primary flex items-center gap-1 rounded-full"
+                >
                   <FaInfoCircle />
                   See Details
                 </button>
