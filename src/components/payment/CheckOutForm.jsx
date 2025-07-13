@@ -4,10 +4,12 @@ import { axiosPublic } from "../../API/utils";
 import "./checkOut.css";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import useAuth from "../../hooks/useAuth";
 
-const CheckOutForm = ({ price, setIsOpen, id }) => {
+const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useAuth();
   const [error, setError] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -19,6 +21,20 @@ const CheckOutForm = ({ price, setIsOpen, id }) => {
         `/accepted-classes/enroll/${id}`
       );
       return data;
+    },
+  });
+
+  const { mutate: enrollmentHistory } = useMutation({
+    mutationKey: ["enrollment-history"],
+    mutationFn: async (enrollmentData) => {
+      const { data } = await axiosPublic.post("enrollments", enrollmentData);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Enrollment successful!");
+    },
+    onError: () => {
+      toast.error("Enrollment failed.");
     },
   });
 
@@ -58,7 +74,18 @@ const CheckOutForm = ({ price, setIsOpen, id }) => {
       const transactionId = paymentIntent.id;
       setIsOpen(false);
       toast.success("Payment successful!");
-      console.log(transactionId);
+
+      // send payment info to server
+      const enrollmentData = {
+        ...classDetails,
+        transactionId,
+        student_email: user?.email,
+        student_name: user?.displayName,
+        student_image: user?.photoURL,
+        purchased_at: new Date().toISOString(),
+      };
+
+      enrollmentHistory(enrollmentData);
 
       // increase enrollment count
       increaseEnrollment();

@@ -74,6 +74,7 @@ const ClassDetails = () => {
           title={title}
           price={price}
           id={id}
+          classDetails={classDetails}
         ></PaymentModal>
       </div>
     </div>

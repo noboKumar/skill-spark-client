@@ -5,7 +5,7 @@ import CheckOutForm from "./CheckOutForm";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-const PaymentModal = ({ isOpen, setIsOpen, price, title,id }) => {
+const PaymentModal = ({ isOpen, setIsOpen, price, title,id, classDetails }) => {
   function close() {
     setIsOpen(false);
   }
@@ -29,7 +29,7 @@ const PaymentModal = ({ isOpen, setIsOpen, price, title,id }) => {
             <h1 className="text-lg font-semibold mb-4">Price: ${price}</h1>
 
             <Elements stripe={stripePromise}>
-              <CheckOutForm setIsOpen={setIsOpen} price={price} id={id}></CheckOutForm>
+              <CheckOutForm setIsOpen={setIsOpen} price={price} id={id} classDetails={classDetails}></CheckOutForm>
             </Elements>
           </DialogPanel>
         </div>
