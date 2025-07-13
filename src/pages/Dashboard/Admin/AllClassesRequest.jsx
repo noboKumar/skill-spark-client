@@ -1,9 +1,10 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import Pagination from "../../../components/UI/Pagination";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AllClassesRequest = () => {
   const QueryClient = useQueryClient();
@@ -16,6 +17,66 @@ const AllClassesRequest = () => {
       return res.data;
     },
   });
+
+  const { mutate: approveClassRequest } = useMutation({
+    mutationKey: ["approve-class-request"],
+    mutationFn: async (id) => {
+      const { data } = await axiosSecure.patch(`/class-requests/approve/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries(["allClasses"]);
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  const { mutate: rejectClassRequest } = useMutation({
+    mutationKey: ["reject-class-request"],
+    mutationFn: async (id) => {
+      const { data } = await axiosSecure.patch(`/class-requests/reject/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      QueryClient.invalidateQueries(["allClasses"]);
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  const handleApproved = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Accept this class request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Accept it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        approveClassRequest(id);
+      }
+    });
+  };
+  const handleRejected = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Reject this class request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Reject it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        rejectClassRequest(id);
+      }
+    });
+  };
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
@@ -36,6 +97,7 @@ const AllClassesRequest = () => {
               <th>Description</th>
               <th>Status</th>
               <th className="text-center">Action</th>
+              <th>Progress</th>
             </tr>
           </thead>
           <tbody>
@@ -59,7 +121,7 @@ const AllClassesRequest = () => {
                     className={`badge font-semibold rounded-full text-white px-5 py-4 ${
                       data.status === "pending"
                         ? "bg-yellow-500"
-                        : data.status === "approved"
+                        : data.status === "accepted"
                         ? "bg-green-600"
                         : "bg-red-600"
                     }`}
@@ -68,14 +130,23 @@ const AllClassesRequest = () => {
                   </span>
                 </td>
                 <td className="text-center">
-                  <button className="btn btn-sm btn-success text-white">
+                  <button
+                    onClick={() => handleApproved(data._id)}
+                    className="btn btn-sm btn-success text-white"
+                  >
                     <FaCheckCircle className="text-lg" />
                     Approve
                   </button>
-                  <button className="btn btn-sm btn-error text-white ml-2">
+                  <button
+                    onClick={() => handleRejected(data._id)}
+                    className="btn btn-sm btn-error text-white ml-2"
+                  >
                     <FaTimesCircle className="text-lg" />
                     Reject
                   </button>
+                </td>
+                <td>
+                  <button className="btn">Progress</button>
                 </td>
               </tr>
             ))}
