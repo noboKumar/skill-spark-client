@@ -54,7 +54,7 @@ const TeacherRequest = () => {
   });
   //   get teacher request
   const {
-    data: teacherRequestData,
+    data: teacherRequestData = [],
     isLoading,
     error,
   } = useQuery({
@@ -112,12 +112,12 @@ const TeacherRequest = () => {
     });
   };
 
+  const isArray = Array.isArray(teacherRequestData);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = teacherRequestData?.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = isArray
+    ? teacherRequestData.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
   return (
     <div>
@@ -137,7 +137,7 @@ const TeacherRequest = () => {
             </tr>
           </thead>
           <tbody>
-            {currentItems?.map?.((data, index) => (
+            {(currentItems || []).map((data, index) => (
               <tr key={data._id}>
                 <td>{index + 1}</td>
                 <td>

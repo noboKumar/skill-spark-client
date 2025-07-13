@@ -7,10 +7,11 @@ import toast from "react-hot-toast";
 import useRole from "../hooks/useRole";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import useStatus from "../hooks/useStatus";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const TeachOnSkillSpark = () => {
   const { user } = useAuth();
-  const { role } = useRole();
+  const { role, roleLoading } = useRole();
   const { requestStatus } = useStatus();
   const {
     register,
@@ -42,7 +43,9 @@ const TeachOnSkillSpark = () => {
     sendRequest(data);
     reset();
   };
-
+  if (roleLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   if (role === "teacher") {
     return (
       <>

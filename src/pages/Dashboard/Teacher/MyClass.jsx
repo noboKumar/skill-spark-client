@@ -4,20 +4,38 @@ import {
   FaChalkboardTeacher,
   FaEdit,
   FaInfoCircle,
+  FaRegSadTear,
   FaTrashAlt,
 } from "react-icons/fa";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
+import { Link } from "react-router";
 
 const MyClass = () => {
   const { user } = useAuth();
-  const { data: MyClasses } = useQuery({
+  const { data: myClasses } = useQuery({
     queryKey: ["my-classes"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-class/${user?.email}`);
       return data;
     },
   });
+
+  if (!myClasses || myClasses.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center text-center py-20 bg-base-200 rounded-xl shadow-md">
+        <FaRegSadTear className="text-6xl text-warning mb-4" />
+        <h2 className="text-2xl font-semibold text-gray-700">
+          No Classes Added Yet
+        </h2>
+        <p className="text-gray-500 mt-2 max-w-md">
+          You haven't added any classes. Click on{" "}
+          <Link to="/dashboard/add-class" className="font-semibold text-primary">"Add Class"</Link> to
+          start sharing your knowledge!
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-11/12 mx-auto px-4 py-10">
@@ -26,7 +44,7 @@ const MyClass = () => {
         My Added Classes
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(MyClasses || []).map((data) => (
+        {(myClasses || []).map((data) => (
           <div
             key={data._id}
             className="card bg-base-100 shadow-md border border-gray-200"

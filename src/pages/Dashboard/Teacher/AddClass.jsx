@@ -1,13 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { uploadImage } from "../../../API/utils";
+import { useNavigate } from "react-router";
 
 const AddClass = () => {
   const { user } = useAuth();
+  const QueryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,6 +26,7 @@ const AddClass = () => {
     },
     onSuccess: () => {
       toast.success("Class added!");
+      QueryClient.invalidateQueries(["my-classes"]);
     },
     onError: () => {
       toast.error("Submission failed.");
@@ -42,11 +46,12 @@ const AddClass = () => {
       data.email = user?.email;
       data.name = user?.displayName;
       data.status = "pending";
-      
+
       addClassRequest(data);
 
       // reset form after submission
       reset();
+      navigate("/dashboard/my-class");
     } catch (error) {
       console.log(error);
     }
