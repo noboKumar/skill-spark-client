@@ -143,13 +143,25 @@ const MyClass = () => {
                   <FaTrashAlt />
                   Delete
                 </button>
-                <button
-                  disabled={data.status !== "approved"}
-                  className="btn btn-sm btn-primary flex items-center gap-1 rounded-full"
-                >
-                  <FaInfoCircle />
-                  See Details
-                </button>
+                {data.status === "approved" ? (
+                  <Link to={`/dashboard/my-class/${data._id}`}>
+                    <button
+                      disabled={data.status !== "approved"}
+                      className="btn btn-sm btn-primary flex items-center gap-1 rounded-full"
+                    >
+                      <FaInfoCircle />
+                      See Details
+                    </button>
+                  </Link>
+                ) : (
+                  <button
+                    disabled={data.status !== "approved"}
+                    className="btn btn-sm btn-primary flex items-center gap-1 rounded-full"
+                  >
+                    <FaInfoCircle />
+                    See Details
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -1,27 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
+import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaChalkboardTeacher, FaEnvelope, FaDollarSign } from "react-icons/fa";
-import { MdOutlinePayment } from "react-icons/md";
-import LoadingSpinner from "../components/UI/LoadingSpinner";
-import useAuth from "../hooks/useAuth";
 
-const ClassDetails = () => {
+const MyClassDetails = () => {
   const { id } = useParams();
-  const { user } = useAuth();
-  const { data: classDetails, isLoading } = useQuery({
-    queryKey: ["classDetails"],
+  const { data: myClassDetailsData, isLoading } = useQuery({
+    queryKey: ["myClassDetails"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/accepted-classes/${id}`);
+      const { data } = await axiosSecure.get(`/my-class-details/${id}`);
       return data;
     },
   });
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  const { title, description, image, name, email, price } = classDetails;
-  const isMyClass = user?.email === email;
+  const { title, description, image, name, email, price } = myClassDetailsData;
+  console.log(myClassDetailsData);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -53,21 +50,10 @@ const ClassDetails = () => {
             <h2 className="text-xl font-semibold mb-1">Class Description:</h2>
             <p className="leading-relaxed text-justify">{description}</p>
           </div>
-          <div className="divider"></div>
-
-          <div className="pt-4 flex justify-end">
-            <button
-              disabled={isMyClass}
-              className="btn btn-primary btn-lg flex items-center gap-2"
-            >
-              <MdOutlinePayment className="text-xl" />
-              Pay Now
-            </button>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ClassDetails;
+export default MyClassDetails;

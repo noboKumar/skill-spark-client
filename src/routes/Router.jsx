@@ -20,6 +20,7 @@ import StudentRoute from "./StudentRoute";
 import MyRequest from "../pages/Dashboard/Student/MyRequest";
 import AllClassesRequest from "../pages/Dashboard/Admin/AllClassesRequest";
 import ClassDetails from "../pages/ClassDetails";
+import MyClassDetails from "../pages/Dashboard/Teacher/MyClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -107,6 +108,14 @@ export const router = createBrowserRouter([
         element: (
           <TeacherRoute>
             <MyClass />
+          </TeacherRoute>
+        ),
+      },
+      {
+        path: "my-class/:id",
+        element: (
+          <TeacherRoute>
+            <MyClassDetails />
           </TeacherRoute>
         ),
       },
