@@ -87,7 +87,8 @@ const TeachOnSkillSpark = () => {
             type="text"
             placeholder="Your Full Name"
             className="input input-bordered w-full bg-base-200"
-            {...register("name", { required: true })}
+            readOnly
+            defaultValue={user?.displayName}
           />
           {errors.name && (
             <p className="text-error text-sm mt-1">Name is required.</p>
