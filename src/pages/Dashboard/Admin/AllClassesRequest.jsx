@@ -121,7 +121,7 @@ const AllClassesRequest = () => {
                     className={`badge font-semibold rounded-full text-white px-5 py-4 ${
                       data.status === "pending"
                         ? "bg-yellow-500"
-                        : data.status === "accepted"
+                        : data.status === "approved"
                         ? "bg-green-600"
                         : "bg-red-600"
                     }`}
