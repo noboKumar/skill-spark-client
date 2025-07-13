@@ -64,14 +64,14 @@ const UpdateMyClassModal = ({ isOpen, setIsOpen, classId }) => {
     >
       <div className="fixed inset-0 z-40 w-screen bg-black/30 backdrop-blur-sm" />
       <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
-        <DialogPanel className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
-          <DialogTitle className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <DialogPanel className="w-full max-w-lg rounded-xl bg-base-100 p-6 shadow-xl">
+          <DialogTitle className="text-xl font-semibold mb-4 flex items-center gap-2">
             <FaEdit /> Update Class Info
           </DialogTitle>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5 text-gray-700"
+            className="space-y-5 "
           >
             {/* Title */}
             <div>
@@ -88,7 +88,7 @@ const UpdateMyClassModal = ({ isOpen, setIsOpen, classId }) => {
 
             {/* Cover Photo */}
             <div>
-              <label className="block mb-1 text-sm font-medium text-gray-700">
+              <label className="block mb-1 text-sm font-medium ">
                 Cover Photo
               </label>
               <input
