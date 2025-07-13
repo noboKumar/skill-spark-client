@@ -15,6 +15,7 @@ import UpdateMyClassModal from "./UpdateMyClassModal";
 const MyClass = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [classId, setClassId] = useState(null);
   const { data: myClasses } = useQuery({
     queryKey: ["my-classes"],
     queryFn: async () => {
@@ -90,7 +91,10 @@ const MyClass = () => {
               </div>
               <div className="card-actions justify-between pt-4">
                 <button
-                  onClick={() => setIsOpen(true)}
+                  onClick={() => {
+                    setIsOpen(true);
+                    setClassId(data._id);
+                  }}
                   className="btn btn-sm btn-warning flex items-center gap-1 rounded-full"
                 >
                   <FaEdit />
@@ -112,6 +116,7 @@ const MyClass = () => {
       <UpdateMyClassModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
+        classId={classId}
       ></UpdateMyClassModal>
     </div>
   );

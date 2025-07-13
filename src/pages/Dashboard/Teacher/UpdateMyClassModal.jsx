@@ -1,13 +1,55 @@
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { FaEdit } from "react-icons/fa";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import { uploadImage } from "../../../API/utils";
+import toast from "react-hot-toast";
 
-const UpdateMyClassModal = ({ isOpen, setIsOpen, onSubmit }) => {
+const UpdateMyClassModal = ({ isOpen, setIsOpen, classId }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const queryClient = useQueryClient();
+
+  const { mutate: updateClass } = useMutation({
+    mutationKey: ["update-class"],
+    mutationFn: async ({ id, data }) => {
+      const { updateData } = await axiosSecure.patch(`/my-class/${id}`, data);
+      return updateData;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["my-classes"]);
+    },
+    onError: (error) => {
+      console.error("Error updating class:", error);
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const submitPromise = async () => {
+      try {
+        const imageFile = data.image[0];
+        if (!imageFile) {
+          console.error("No image selected");
+          return;
+        }
+        const imageUrl = await uploadImage(imageFile);
+        data.image = imageUrl;
+        updateClass({ id: classId, data });
+        setIsOpen(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    toast.promise(submitPromise(), {
+      loading: "Updating class...",
+      success: "Class updated successfully!",
+      error: "Failed to update class.",
+    });
+  };
 
   function close() {
     setIsOpen(false);
