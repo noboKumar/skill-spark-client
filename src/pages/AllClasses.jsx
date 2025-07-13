@@ -22,11 +22,11 @@ const AllClasses = () => {
       <h1 className="text-3xl font-bold text-center mb-10 text-primary">
         All Classes
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {(currentItems || []).map((data) => (
           <div
             key={data._id}
-            className=" bg-base-200 rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
+            className="bg-base-200 rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:scale-[1.02] flex flex-col"
           >
             <figure>
               <img
@@ -36,32 +36,36 @@ const AllClasses = () => {
               />
             </figure>
 
-            <div className="p-5 space-y-3">
-              <h2 className="text-xl font-bold">{data.title}</h2>
+            <div className="p-5 space-y-3 flex flex-col justify-between h-full">
+              <div className="flex-grow space-y-3">
+                <h2 className="text-xl font-bold">{data.title}</h2>
 
-              <p className="text-lg font-bold text-primary badge badge-secondary border-b-2 border-gray-400">
-                ${data.price}
-              </p>
+                <p className="text-lg font-bold text-primary badge badge-secondary border-b-2 border-gray-400">
+                  ${data.price}
+                </p>
 
-              <p className=" text-sm line-clamp-3">{data.description}</p>
+                <p className=" text-sm line-clamp-3">{data.description}</p>
 
-              <div className="text-sm  space-y-1">
-                <p>
-                  <span className="font-medium">Instructor:</span> {data.name}
-                </p>
-                <p>
-                  <span className="font-medium">Email:</span> {data.email}
-                </p>
-                <p>
-                  <span className="font-medium">Enrollment:</span> 0
-                </p>
+                <div className="text-sm  space-y-1">
+                  <p>
+                    <span className="font-medium">Instructor:</span> {data.name}
+                  </p>
+                  <p>
+                    <span className="font-medium">Email:</span> {data.email}
+                  </p>
+                  <p>
+                    <span className="font-medium">Enrollment:</span> 0
+                  </p>
+                </div>
               </div>
 
-              <Link to={`/classes/${data._id}`} className="pt-4">
-                <button className="w-full btn btn-primary rounded-md">
-                  Enroll Now
-                </button>
-              </Link>
+              <div className="mt-4">
+                <Link to={`/classes/${data._id}`}>
+                  <button className="w-full btn btn-primary rounded-full">
+                    Enroll Now
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
