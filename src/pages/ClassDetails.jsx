@@ -73,6 +73,7 @@ const ClassDetails = () => {
           setIsOpen={setIsOpen}
           title={title}
           price={price}
+          id={id}
         ></PaymentModal>
       </div>
     </div>

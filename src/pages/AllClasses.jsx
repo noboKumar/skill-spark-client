@@ -54,7 +54,7 @@ const AllClasses = () => {
                     <span className="font-medium">Email:</span> {data.email}
                   </p>
                   <p>
-                    <span className="font-medium">Enrollment:</span> 0
+                    <span className="font-medium">Enrollment:</span> {data.total_enrollment}
                   </p>
                 </div>
               </div>

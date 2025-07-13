@@ -3,13 +3,24 @@ import React, { useEffect, useState } from "react";
 import { axiosPublic } from "../../API/utils";
 import "./checkOut.css";
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
 
-const CheckOutForm = ({ price, setIsOpen }) => {
+const CheckOutForm = ({ price, setIsOpen, id }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
+
+  const { mutate: increaseEnrollment } = useMutation({
+    mutationKey: ["increase-enrollment"],
+    mutationFn: async () => {
+      const { data } = await axiosPublic.patch(
+        `/accepted-classes/enroll/${id}`
+      );
+      return data;
+    },
+  });
 
   //   step-1
   useEffect(() => {
@@ -48,6 +59,9 @@ const CheckOutForm = ({ price, setIsOpen }) => {
       setIsOpen(false);
       toast.success("Payment successful!");
       console.log(transactionId);
+
+      // increase enrollment count
+      increaseEnrollment();
     }
     setProcessing(false);
   };
