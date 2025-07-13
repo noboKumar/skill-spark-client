@@ -1,15 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import { useParams } from "react-router";
 import { FaChalkboardTeacher, FaEnvelope, FaDollarSign } from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import useAuth from "../hooks/useAuth";
+import PaymentModal from "../components/payment/PaymentModal";
 
 const ClassDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
   const { data: classDetails, isLoading } = useQuery({
     queryKey: ["classDetails"],
     queryFn: async () => {
@@ -57,6 +59,7 @@ const ClassDetails = () => {
 
           <div className="pt-4 flex justify-end">
             <button
+              onClick={() => setIsOpen(true)}
               disabled={isMyClass}
               className="btn btn-primary btn-lg flex items-center gap-2"
             >
@@ -65,6 +68,12 @@ const ClassDetails = () => {
             </button>
           </div>
         </div>
+        <PaymentModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          title={title}
+          price={price}
+        ></PaymentModal>
       </div>
     </div>
   );
