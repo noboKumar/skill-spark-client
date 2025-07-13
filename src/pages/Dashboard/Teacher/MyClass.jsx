@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaChalkboardTeacher,
   FaEdit,
@@ -10,9 +10,11 @@ import {
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
+import UpdateMyClassModal from "./UpdateMyClassModal";
 
 const MyClass = () => {
   const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
   const { data: myClasses } = useQuery({
     queryKey: ["my-classes"],
     queryFn: async () => {
@@ -30,8 +32,13 @@ const MyClass = () => {
         </h2>
         <p className="text-gray-500 mt-2 max-w-md">
           You haven't added any classes. Click on{" "}
-          <Link to="/dashboard/add-class" className="font-semibold text-primary">"Add Class"</Link> to
-          start sharing your knowledge!
+          <Link
+            to="/dashboard/add-class"
+            className="font-semibold text-primary"
+          >
+            "Add Class"
+          </Link>{" "}
+          to start sharing your knowledge!
         </p>
       </div>
     );
@@ -82,7 +89,10 @@ const MyClass = () => {
                 </span>
               </div>
               <div className="card-actions justify-between pt-4">
-                <button className="btn btn-sm btn-warning flex items-center gap-1 rounded-full">
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="btn btn-sm btn-warning flex items-center gap-1 rounded-full"
+                >
                   <FaEdit />
                   Update
                 </button>
@@ -99,6 +109,10 @@ const MyClass = () => {
           </div>
         ))}
       </div>
+      <UpdateMyClassModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      ></UpdateMyClassModal>
     </div>
   );
 };
