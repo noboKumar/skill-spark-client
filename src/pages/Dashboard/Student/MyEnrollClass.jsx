@@ -22,8 +22,10 @@ const MyEnrollClass = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center my-10 divider">My Enroll Class</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h1 className="text-3xl font-bold text-center my-10 divider">
+        My Enroll Class
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {myEnrollments.map((enrollmentData) => (
           <div
             key={enrollmentData._id}
@@ -31,21 +33,23 @@ const MyEnrollClass = () => {
           >
             <img
               src={enrollmentData.image}
-              alt="AI Class"
+              alt={enrollmentData.title}
               className="w-full h-56 object-cover"
             />
-            <div className="p-5 space-y-2">
-              <h2 className="text-2xl font-bold text-primary">
-                {enrollmentData.title}
-              </h2>
-              <p className="flex items-center gap-2 text-gray-600">
-                <FaChalkboardTeacher className="text-lg text-primary" />
-                <span className="font-medium">Instructor:</span>{" "}
-                {enrollmentData.name}
-              </p>
+            <div className="p-5 flex flex-col">
+              <div className="flex-grow space-y-4">
+                <h2 className="text-2xl font-bold text-primary">
+                  {enrollmentData.title}
+                </h2>
+                <p className="flex items-center gap-2 text-gray-600">
+                  <FaChalkboardTeacher className="text-lg text-primary" />
+                  <span className="font-medium">Instructor:</span>{" "}
+                  {enrollmentData.name}
+                </p>
+              </div>
 
               <div className="pt-3 flex justify-end">
-                <button className="btn btn-primary btn-sm">
+                <button className="btn btn-primary btn-sm rounded-full">
                   Continue Class
                 </button>
               </div>
