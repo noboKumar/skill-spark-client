@@ -29,7 +29,7 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
   const { mutate: enrollmentHistory } = useMutation({
     mutationKey: ["enrollment-history"],
     mutationFn: async (enrollmentData) => {
-      const { data } = await axiosPublic.post("enrollments", enrollmentData);
+      const { data } = await axiosPublic.post("/enrollments", enrollmentData);
       return data;
     },
     onSuccess: () => {

@@ -7,10 +7,12 @@ import { MdOutlinePayment } from "react-icons/md";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import useAuth from "../hooks/useAuth";
 import PaymentModal from "../components/payment/PaymentModal";
+import useRole from "../hooks/useRole";
 
 const ClassDetails = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const { role } = useRole();
   const [isOpen, setIsOpen] = useState(false);
   const { data: classDetails, isLoading } = useQuery({
     queryKey: ["classDetails"],
@@ -60,7 +62,7 @@ const ClassDetails = () => {
           <div className="pt-4 flex justify-end">
             <button
               onClick={() => setIsOpen(true)}
-              disabled={isMyClass}
+              disabled={isMyClass || role !== "student"}
               className="btn btn-primary btn-lg flex items-center gap-2"
             >
               <MdOutlinePayment className="text-xl" />
