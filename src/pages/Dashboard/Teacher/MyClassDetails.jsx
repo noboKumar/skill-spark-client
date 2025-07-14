@@ -1,57 +1,59 @@
-import React from "react";
-import { axiosSecure } from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
-import LoadingSpinner from "../../../components/UI/LoadingSpinner";
-import { FaChalkboardTeacher, FaEnvelope, FaDollarSign } from "react-icons/fa";
+import React, { useState } from "react";
+import { FiPlusCircle } from "react-icons/fi";
+import AssignmentModal from "./AssignmentModal";
 
 const MyClassDetails = () => {
-  const { id } = useParams();
-  const { data: myClassDetailsData, isLoading } = useQuery({
-    queryKey: ["myClassDetails"],
-    queryFn: async () => {
-      const { data } = await axiosSecure.get(`/my-class-details/${id}`);
-      return data;
-    },
-  });
-  if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
-  const { title, description, image, name, email, price } = myClassDetailsData;
-  console.log(myClassDetailsData);
+  const [isOpen, setIsOpen] = useState(false);
 
+  function open() {
+    setIsOpen(true);
+  }
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <div className="bg-base-200 shadow-lg rounded-xl overflow-hidden border-2 border-gray-400">
-        <img src={image} alt={title} className="w-full h-96 object-cover" />
-        <div className="p-6 space-y-4">
-          <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
-            {title}
-          </h1>
-
-          <div className="space-y-1">
-            <p className="flex items-center gap-2 text-xl">
-              <FaChalkboardTeacher className="text-xl text-primary" />
-              <span>Teacher:</span> {name}
-            </p>
-            <p className="flex items-center gap-2 text-xl">
-              <FaEnvelope className="text-xl text-primary" />
-              <span>Email:</span> {email}
-            </p>
-            <p className="flex items-center gap-2 text-xl">
-              <FaDollarSign className="text-xl text-primary" />
-              <span>Price:</span> ${price}
-            </p>
+      <div>
+        <h1 className="text-3xl font-bold text-center mb-10 text-primary">
+          Class Progress
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Total Enrollment Card */}
+          <div className="bg-base-200 p-6 rounded-xl shadow-md border border-gray-300 text-center">
+            <h2 className="text-lg font-semibold text-gray-700">
+              Total Enrollment
+            </h2>
+            <p className="text-4xl font-bold text-primary mt-2">0</p>
           </div>
 
-          <div className="divider"></div>
+          {/* Total Assignment Card */}
+          <div className="bg-base-200 p-6 rounded-xl shadow-md border border-gray-300 text-center">
+            <h2 className="text-lg font-semibold text-gray-700">
+              Total Assignment
+            </h2>
+            <p className="text-4xl font-bold text-primary mt-2">0</p>
+          </div>
 
-          <div>
-            <h2 className="text-xl font-semibold mb-1">Class Description:</h2>
-            <p className="leading-relaxed text-justify">{description}</p>
+          {/* Total Assignment Submit Card */}
+          <div className="bg-base-200 p-6 rounded-xl shadow-md border border-gray-300 text-center">
+            <h2 className="text-lg font-semibold text-gray-700">
+              Assignment Submitted
+            </h2>
+            <p className="text-4xl font-bold text-primary mt-2">0</p>
           </div>
         </div>
       </div>
+
+      {/* Class Assignment Section */}
+      <div className="mt-16">
+        <h1 className="text-3xl font-bold text-center mb-5 text-primary">
+          Class Assignment
+        </h1>
+        <button
+          onClick={open}
+          className="btn btn-primary mb-5 rounded-full text-lg flex items-center justify-center mx-auto"
+        >
+          Create <FiPlusCircle />
+        </button>
+      </div>
+      <AssignmentModal isOpen={isOpen} setIsOpen={setIsOpen}></AssignmentModal>
     </div>
   );
 };
