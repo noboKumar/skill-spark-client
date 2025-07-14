@@ -1,13 +1,27 @@
 import React, { useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 import AssignmentModal from "./AssignmentModal";
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import { useParams } from "react-router";
 
 const MyClassDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { id } = useParams();
 
   function open() {
     setIsOpen(true);
   }
+
+  const { data: progressData } = useQuery({
+    queryKey: ["progress"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/progress/${id}`);
+      return data;
+    },
+  });
+
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div>
@@ -20,7 +34,9 @@ const MyClassDetails = () => {
             <h2 className="text-lg font-semibold text-gray-700">
               Total Enrollment
             </h2>
-            <p className="text-4xl font-bold text-primary mt-2">0</p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {progressData?.total_enrollment}
+            </p>
           </div>
 
           {/* Total Assignment Card */}
@@ -28,7 +44,9 @@ const MyClassDetails = () => {
             <h2 className="text-lg font-semibold text-gray-700">
               Total Assignment
             </h2>
-            <p className="text-4xl font-bold text-primary mt-2">0</p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {progressData?.total_assignment}
+            </p>
           </div>
 
           {/* Total Assignment Submit Card */}
@@ -36,7 +54,9 @@ const MyClassDetails = () => {
             <h2 className="text-lg font-semibold text-gray-700">
               Assignment Submitted
             </h2>
-            <p className="text-4xl font-bold text-primary mt-2">0</p>
+            <p className="text-4xl font-bold text-primary mt-2">
+              {progressData?.total_submitted}
+            </p>
           </div>
         </div>
       </div>
