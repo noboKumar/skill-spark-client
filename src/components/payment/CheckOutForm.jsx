@@ -5,11 +5,13 @@ import "./checkOut.css";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -89,6 +91,7 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
 
       // increase enrollment count
       increaseEnrollment();
+      navigate("/dashboard/my-enroll-class");
     }
     setProcessing(false);
   };
