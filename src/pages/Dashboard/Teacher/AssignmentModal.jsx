@@ -3,19 +3,49 @@ import { DialogPanel } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { Button, Dialog, DialogTitle } from "@headlessui/react";
 import { MdAssignmentAdd } from "react-icons/md";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import { useParams } from "react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const AssignmentModal = ({ isOpen, setIsOpen }) => {
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+  const queryClient = useQueryClient();
 
   function close() {
     setIsOpen(false);
   }
 
-  const onSubmit = () => {};
+  const { mutate: assignmentData } = useMutation({
+    mutationKey: ["assignment-data"],
+    mutationFn: async (formData) => {
+      const { data } = await axiosSecure.post(`/assignments/${id}`, formData);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["assignments"]);
+      reset();
+      setIsOpen(false);
+      toast.success("Assignment added successfully!");
+    },
+    onError: (error) => {
+      console.error("Error submitting assignment:", error);
+      toast.error("Failed to submit assignment.");
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+    data.classId = id;
+
+    assignmentData(data);
+  };
   return (
     <Dialog
       open={isOpen}
@@ -30,7 +60,7 @@ const AssignmentModal = ({ isOpen, setIsOpen }) => {
             <MdAssignmentAdd size={20} /> Add Assignment
           </DialogTitle>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 ">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Title */}
             <div>
               <label className="label font-semibold">Assignment Title</label>
@@ -40,7 +70,7 @@ const AssignmentModal = ({ isOpen, setIsOpen }) => {
                 {...register("title", { required: true })}
               />
               {errors.title && (
-                <p className="text-sm text-error mt-1">Title is required.</p>
+                <p className="text-sm text-error mt-1">Title is required</p>
               )}
             </div>
 
@@ -53,7 +83,7 @@ const AssignmentModal = ({ isOpen, setIsOpen }) => {
                 {...register("deadline", { required: true })}
               />
               {errors.deadline && (
-                <p className="text-sm text-error mt-1">deadline is required.</p>
+                <p className="text-sm text-error mt-1">deadline is required</p>
               )}
             </div>
 
@@ -69,14 +99,17 @@ const AssignmentModal = ({ isOpen, setIsOpen }) => {
               ></textarea>
               {errors.description && (
                 <p className="text-sm text-error mt-1">
-                  Description is required.
+                  Description is required
                 </p>
               )}
             </div>
 
             {/* Actions */}
             <div className="pt-4 flex justify-end gap-3">
-              <Button type="submit" className="btn btn-primary rounded-full text-white" onClick={close}>
+              <Button
+                type="submit"
+                className="btn btn-primary rounded-full text-white"
+              >
                 Add assignment
               </Button>
             </div>
