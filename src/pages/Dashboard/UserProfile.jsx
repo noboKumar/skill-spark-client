@@ -5,7 +5,6 @@ import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 
 const UserProfile = () => {
-  // TODO: fix responsive issue
   const { user } = useAuth();
   const { role } = useRole(user?.email);
 
@@ -20,7 +19,7 @@ const UserProfile = () => {
         />
 
         {/* Avatar + Info */}
-        <div className="absolute left-1/2 -bottom-28 transform -translate-x-1/2 text-center">
+        <div className="absolute left-1/2 -bottom-48 md:-bottom-40 lg:-bottom-28 transform -translate-x-1/2 text-center">
           <div className="avatar">
             <div className="w-32 rounded-full ring-4 ring-primary">
               <img src={user?.photoURL || "/default-avatar.png"} alt="User" />
@@ -36,7 +35,7 @@ const UserProfile = () => {
           </div>
 
           {/* Email & Phone */}
-          <div className="flex items-center justify-center gap-6 mt-2 text-sm text-gray-600">
+          <div className="flex flex-col 2xl:flex-row items-center justify-center gap-6 mt-2 text-sm text-gray-600">
             <div className="flex items-center gap-1">
               <FaEnvelope /> {user?.email}
             </div>

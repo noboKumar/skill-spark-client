@@ -9,18 +9,14 @@ const DashBoardLayout = () => {
     <div className="drawer lg:drawer-open">
       <input id="responsive-drawer" type="checkbox" className="drawer-toggle" />
 
-      {/* Main Content Area */}
       <div className="drawer-content flex flex-col">
         <DashboardNavbar></DashboardNavbar>
 
-
-        {/* Your page content here */}
         <div className="p-4 w-11/12 mx-auto">
           <Outlet />
         </div>
       </div>
 
-      {/* Sidebar Drawer */}
       <DashboardSideBar></DashboardSideBar>
       <Toaster position="top-center" reverseOrder={false} />
     </div>
