@@ -1,16 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { MdAssignmentLate } from "react-icons/md";
 import Pagination from "../../../components/UI/Pagination";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyEnrollClassDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { data: myAssignments } = useQuery({
     queryKey: ["myAssignments"],
@@ -19,6 +22,37 @@ const MyEnrollClassDetails = () => {
       return data;
     },
   });
+
+  const { mutate: submitAssignment, isPending } = useMutation({
+    mutationKey: ["submit-assignment"],
+    mutationFn: async () => {
+      const { data } = await axiosSecure.patch(`/assignment-submit/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Assignment submitted successfully!");
+      setIsSubmitted(true);
+    },
+    onError: () => {
+      toast.error("Assignment submission failed.");
+    },
+  });
+
+  const handleSubmit = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Confirm assignment submission?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "confirm",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        submitAssignment();
+      }
+    });
+  };
 
   if (myAssignments?.length === 0) {
     return (
@@ -69,7 +103,11 @@ const MyEnrollClassDetails = () => {
                 <td className="max-w-sm">{data.description}</td>
                 <td className="text-red-500 font-semibold">{data.deadline}</td>
                 <td>
-                  <button className="btn btn-primary btn-sm flex items-center gap-2">
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isPending || isSubmitted}
+                    className="btn btn-primary btn-sm flex items-center gap-2"
+                  >
                     <FaCheckCircle className="text-lg" />
                     Submit
                   </button>
