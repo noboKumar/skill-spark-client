@@ -30,7 +30,7 @@ const ClassDetails = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="bg-base-200 shadow-lg rounded-xl overflow-hidden border-2 border-gray-400">
-        <img src={image} alt={title} className="w-full h-96 object-cover" />
+        <img src={image} alt={title} className="w-full md:h-96 object-cover" />
         <div className="p-6 space-y-4">
           <h1 className="text-3xl font-bold text-primary flex items-center gap-2">
             {title}
