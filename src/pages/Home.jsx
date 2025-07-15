@@ -6,6 +6,7 @@ import HighlightSection from "../components/sections/Home/HighlightSection";
 import FeedBackSection from "../components/sections/Home/FeedBackSection";
 import TotalUsersSection from "../components/sections/Home/TotalUsersSection";
 import MeetOurTeachers from "../components/sections/Home/MeetOurTeachers";
+import QnaSection from "../components/sections/Home/QnaSection";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <TotalUsersSection></TotalUsersSection>
       <BecomeATeacher></BecomeATeacher>
       <MeetOurTeachers></MeetOurTeachers>
+      <QnaSection></QnaSection>
     </div>
   );
 };
