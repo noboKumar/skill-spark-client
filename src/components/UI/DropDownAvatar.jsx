@@ -1,13 +1,13 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
-import { FaChevronDown } from "react-icons/fa";
-import { FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaChevronDown, FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 
 const DropDownAvatar = () => {
   const { user, logOutUser } = useAuth();
+
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -24,32 +24,27 @@ const DropDownAvatar = () => {
       }
     });
   };
+
   return (
-    <>
+    <div className="dropdown dropdown-end">
       {/* Trigger Button */}
-      <button
-        className="flex items-center gap-2 cursor-pointer p-2 border border-gray-300 rounded-full hover:shadow-md transition"
-        popoverTarget="user-dropdown-popover"
-        style={{ anchorName: "--user-dropdown-anchor" }}
-      >
+      <div tabIndex={0} role="button" className="flex items-center gap-2 cursor-pointer p-2 border border-gray-300 rounded-full hover:shadow-md transition">
         <img
           src={user?.photoURL}
           alt="profile"
           className="md:w-10 md:h-10 w-8 rounded-full"
         />
         <FaChevronDown className="text-sm" />
-      </button>
+      </div>
 
       {/* Dropdown Menu */}
       <ul
-        className="dropdown menu w-40 rounded-box bg-base-300 shadow-sm z-10 font-semibold text-[var(--color-text)] border border-gray-300"
-        popover="auto"
-        id="user-dropdown-popover"
-        style={{ positionAnchor: "--user-dropdown-anchor" }}
+        tabIndex={0}
+        className="dropdown-content menu bg-base-300 w-52 mt-3 p-2 shadow-md rounded-box border border-gray-300 z-[100]"
       >
-        <p className="font-semibold text-lg text-center">
+        <li className="text-center font-semibold text-lg">
           {user?.displayName || "User"}
-        </p>
+        </li>
         <div className="divider my-0"></div>
         <li>
           <Link to="/dashboard" className="flex items-center gap-2">
@@ -60,14 +55,14 @@ const DropDownAvatar = () => {
         <li>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 w-full text-left"
+            className="flex items-center gap-2 text-left"
           >
             <FaSignOutAlt />
             Logout
           </button>
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

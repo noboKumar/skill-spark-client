@@ -50,7 +50,7 @@ const NavBar = () => {
             {navLinks}
           </ul>
         </div>
-        <div className="navbar-end md:gap-5">
+        <div className="navbar-end gap-2 md:gap-5">
           {/* Toggle Theme */}
           <ToggleTheme />
           {user ? (
