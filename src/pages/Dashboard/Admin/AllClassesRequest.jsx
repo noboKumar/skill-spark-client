@@ -5,10 +5,14 @@ import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import Pagination from "../../../components/UI/Pagination";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { FaChartLine } from "react-icons/fa";
+import ProgressModal from "./ProgressModal";
 
 const AllClassesRequest = () => {
   const QueryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
+  const [classId, setClassId] = useState(null);
   const itemsPerPage = 10;
   const { data: allClasses, isLoading } = useQuery({
     queryKey: ["allClasses"],
@@ -148,7 +152,17 @@ const AllClassesRequest = () => {
                   </button>
                 </td>
                 <td>
-                  <button className="btn">Progress</button>
+                  <button
+                    onClick={() => {
+                      setIsOpen(true);
+                      setClassId(data._id);
+                    }}
+                    disabled={data.status !== "approved"}
+                    className="btn btn-outline btn-primary btn-sm flex items-center gap-2"
+                  >
+                    <FaChartLine className="text-base" />
+                    Progress
+                  </button>
                 </td>
               </tr>
             ))}
@@ -161,6 +175,11 @@ const AllClassesRequest = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       ></Pagination>
+      <ProgressModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        classId={classId}
+      ></ProgressModal>
     </div>
   );
 };
