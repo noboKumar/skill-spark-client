@@ -29,7 +29,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q4 */}
+      {/* Q3 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
@@ -42,7 +42,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q5 */}
+      {/* Q4 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
@@ -54,7 +54,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q6 */}
+      {/* Q5 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
@@ -66,7 +66,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q7 */}
+      {/* Q6 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
@@ -78,7 +78,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q8 */}
+      {/* Q7 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
@@ -90,7 +90,7 @@ const QnaSection = () => {
         </div>
       </div>
 
-      {/* Q9 */}
+      {/* Q8 */}
       <div className="collapse collapse-plus bg-base-100 border border-base-300">
         <input type="radio" name="my-accordion-3" />
         <div className="collapse-title font-semibold">
