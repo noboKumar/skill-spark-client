@@ -3,7 +3,6 @@ import React from "react";
 import { axiosPublic } from "../../../API/utils";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import illustrator from "../../../assets/Webinar-bro.svg";
-import HeadingText from "../../UI/HeadingText";
 
 const TotalUsersSection = () => {
   const { data: allUsersData, isLoading } = useQuery({
@@ -19,12 +18,11 @@ const TotalUsersSection = () => {
   console.log(allUsersData);
   return (
     <div>
-      <HeadingText>Total Users</HeadingText>
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 mb-20">
         {/* Stats Card */}
         <div className="bg-base-200 p-8 rounded-4xl w-full md:w-1/2 space-y-5 shadow-inner border border-gray-200">
           <h2 className="text-3xl font-bold text-primary mb-4">
-            Platform Stats
+            Total Users
           </h2>
 
           <div className="flex flex-col items-center justify-between bg-white p-4 rounded-full shadow">

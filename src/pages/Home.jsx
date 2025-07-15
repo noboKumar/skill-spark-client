@@ -5,6 +5,7 @@ import BecomeATeacher from "../components/sections/Home/BecomeATeacher";
 import HighlightSection from "../components/sections/Home/HighlightSection";
 import FeedBackSection from "../components/sections/Home/FeedBackSection";
 import TotalUsersSection from "../components/sections/Home/TotalUsersSection";
+import MeetOurTeachers from "../components/sections/Home/MeetOurTeachers";
 
 const Home = () => {
   return (
@@ -15,7 +16,7 @@ const Home = () => {
       <FeedBackSection></FeedBackSection>
       <TotalUsersSection></TotalUsersSection>
       <BecomeATeacher></BecomeATeacher>
-      {/* extra 2 section */}
+      <MeetOurTeachers></MeetOurTeachers>
     </div>
   );
 };
