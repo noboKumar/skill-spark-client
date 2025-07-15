@@ -75,7 +75,7 @@ const TeachOnSkillSpark = () => {
       {/* form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="avatar flex justify-center">
-          <div className="ring-primary ring-offset-base-100 w-32 rounded-full ring-2 ring-offset-2">
+          <div className="ring-primary ring-offset-base-100 w-28 md:w-32 rounded-full ring-2 ring-offset-2">
             <img src={user?.photoURL} />
           </div>
         </div>
