@@ -25,7 +25,7 @@ const HighlightSection = () => {
   }
   return (
     <div className="mb-20">
-      <HeadingText>Highlight Classes</HeadingText>
+      <HeadingText>Highlighted Classes</HeadingText>
 
       <div>
         {highlightClass?.length > 0 && (
