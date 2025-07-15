@@ -19,8 +19,8 @@ const DropDownAvatar = () => {
       confirmButtonText: "Yes, logout!",
     }).then((result) => {
       if (result.isConfirmed) {
-        logOutUser()
-        toast.success('Successfully logged out!')
+        logOutUser();
+        toast.success("Successfully logged out!");
       }
     });
   };
@@ -35,7 +35,7 @@ const DropDownAvatar = () => {
         <img
           src={user?.photoURL}
           alt="profile"
-          className="w-10 h-10 rounded-full"
+          className="md:w-10 md:h-10 w-8 rounded-full"
         />
         <FaChevronDown className="text-sm" />
       </button>

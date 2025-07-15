@@ -30,7 +30,7 @@ const NavBar = () => {
       <Container className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden px-0 ">
               <AiOutlineMenu size={20} />
             </div>
             <ul
@@ -50,7 +50,7 @@ const NavBar = () => {
             {navLinks}
           </ul>
         </div>
-        <div className="navbar-end gap-5">
+        <div className="navbar-end md:gap-5">
           {/* Toggle Theme */}
           <ToggleTheme />
           {user ? (
