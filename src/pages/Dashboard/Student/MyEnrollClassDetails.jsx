@@ -7,9 +7,12 @@ import { MdAssignmentLate } from "react-icons/md";
 import Pagination from "../../../components/UI/Pagination";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { FaClipboardList } from "react-icons/fa";
+import FeedBackModal from "./FeedBackModal";
 
 const MyEnrollClassDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
   const itemsPerPage = 10;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -80,6 +83,15 @@ const MyEnrollClassDetails = () => {
 
   return (
     <div>
+      <div className="flex justify-end">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="btn btn-outline btn-primary rounded-full gap-2 shadow-sm hover:shadow-md transition-all"
+        >
+          <FaClipboardList className="text-lg" />
+          Teaching Evaluation Report
+        </button>
+      </div>
       <h1 className="text-3xl font-bold text-center my-10 divider">
         Class Assignment
       </h1>
@@ -123,6 +135,7 @@ const MyEnrollClassDetails = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       ></Pagination>
+      <FeedBackModal isOpen={isOpen} setIsOpen={setIsOpen}></FeedBackModal>
     </div>
   );
 };
