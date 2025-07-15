@@ -1,21 +1,21 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
-import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
-import { MdAssignmentLate } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 import Pagination from "../../../components/UI/Pagination";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { FaClipboardList } from "react-icons/fa";
 import FeedBackModal from "./FeedBackModal";
+import useAuth from "../../../hooks/useAuth";
 
 const MyEnrollClassDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
   const itemsPerPage = 10;
   const { id } = useParams();
-  const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { data: myAssignments } = useQuery({
@@ -41,6 +41,15 @@ const MyEnrollClassDetails = () => {
     },
   });
 
+  const { data: myEnrollments } = useQuery({
+    queryKey: ["myEnrollments"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/enrollments/${user.email}`);
+      return data;
+    },
+  });
+  const classInfo = myEnrollments?.find((data) => data._id === id);
+
   const handleSubmit = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -56,26 +65,6 @@ const MyEnrollClassDetails = () => {
       }
     });
   };
-
-  if (myAssignments?.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center space-y-4">
-        <MdAssignmentLate className="text-6xl text-primary" />
-        <h2 className="text-2xl font-semibold">No Assignments Found</h2>
-        <p className="md:max-w-md">
-          You haven't received any assignments for this class yet. Please check
-          back later!
-        </p>
-        <button
-          onClick={() => navigate(-1)}
-          className="btn btn-outline btn-primary flex items-center gap-2"
-        >
-          <FaArrowLeft />
-          Back
-        </button>
-      </div>
-    );
-  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -135,7 +124,11 @@ const MyEnrollClassDetails = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       ></Pagination>
-      <FeedBackModal isOpen={isOpen} setIsOpen={setIsOpen}></FeedBackModal>
+      <FeedBackModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        classInfo={classInfo}
+      ></FeedBackModal>
     </div>
   );
 };

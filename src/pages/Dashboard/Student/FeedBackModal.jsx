@@ -2,21 +2,54 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
+import { useMutation } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
-const FeedBackModal = ({ isOpen, setIsOpen }) => {
+const FeedBackModal = ({ isOpen, setIsOpen, classInfo }) => {
   const [rating, setRating] = useState(0);
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const { mutate: sendFeedback } = useMutation({
+    mutationKey: ["send-feedback"],
+    mutationFn: async (feedbackData) => {
+      const { data } = await axiosSecure.post("/feedback", feedbackData);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Feedback sent successfully!");
+      setIsOpen(false);
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   function close() {
     setIsOpen(false);
   }
 
   const onSubmit = (data) => {
-    console.log(data);
+    const feedbackData = {
+      rating: rating,
+      description: data.description,
+      teacher_name: classInfo?.name,
+      teacher_email: classInfo?.email,
+      teacher_image: classInfo?.image,
+      class_name: classInfo?.title,
+      class_id: classInfo?._id,
+      student_name: user?.displayName,
+      student_email: user?.email,
+      student_image: user?.photoURL,
+    };
+
+    sendFeedback(feedbackData);
   };
 
   const handleRating = (rate) => {
