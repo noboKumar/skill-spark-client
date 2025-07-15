@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaChalkboardTeacher } from "react-icons/fa";
+import { Link } from "react-router";
 
 const MyEnrollClass = () => {
   const { user } = useAuth();
@@ -18,8 +19,7 @@ const MyEnrollClass = () => {
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  console.log(myEnrollments);
-
+  
   return (
     <div>
       <h1 className="text-3xl font-bold text-center my-10 divider">
@@ -49,9 +49,11 @@ const MyEnrollClass = () => {
               </div>
 
               <div className="pt-3 flex justify-end">
-                <button className="btn btn-primary btn-sm rounded-full">
-                  Continue Class
-                </button>
+                <Link to={`/dashboard/my-enroll-class/${enrollmentData._id}`}>
+                  <button className="btn btn-primary btn-sm rounded-full">
+                    Continue Class
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

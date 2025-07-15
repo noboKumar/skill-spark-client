@@ -21,6 +21,7 @@ import MyRequest from "../pages/Dashboard/Student/MyRequest";
 import AllClassesRequest from "../pages/Dashboard/Admin/AllClassesRequest";
 import ClassDetails from "../pages/ClassDetails";
 import MyClassDetails from "../pages/Dashboard/Teacher/MyClassDetails";
+import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrollClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,14 @@ export const router = createBrowserRouter([
         element: (
           <StudentRoute>
             <MyEnrollClass />
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "my-enroll-class/:id",
+        element: (
+          <StudentRoute>
+            <MyEnrollClassDetails />
           </StudentRoute>
         ),
       },
