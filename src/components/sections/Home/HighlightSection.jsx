@@ -77,7 +77,7 @@ const HighlightSection = () => {
 
                     {/* Button */}
                     <div className="pt-2">
-                      <Link to="/all-classes">
+                      <Link to={`/classes/${slider._id}`}>
                         <button className="btn btn-primary btn-wide rounded-full">
                           {slider.buttonText || "Join Class"}
                         </button>
