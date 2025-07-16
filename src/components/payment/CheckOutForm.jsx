@@ -80,6 +80,7 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
       // send payment info to server
       const enrollmentData = {
         ...classData,
+        classId: _id,
         transactionId,
         student_email: user?.email,
         student_name: user?.displayName,

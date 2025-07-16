@@ -20,7 +20,7 @@ const MyEnrollClassDetails = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { data: myAssignments } = useQuery({
-    queryKey: ["myAssignments"],
+    queryKey: ["myAssignments", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-assignments/${id}`);
       return data;
@@ -45,10 +45,11 @@ const MyEnrollClassDetails = () => {
   const { data: myEnrollments } = useQuery({
     queryKey: ["myEnrollments"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/enrollments/${user.email}`);
+      const { data } = await axiosSecure.get(`/enrollments/${user?.email}`);
       return data;
     },
   });
+  console.log(myAssignments);
   const classInfo = myEnrollments?.find((data) => data._id === id);
 
   const handleSubmit = () => {
@@ -67,9 +68,12 @@ const MyEnrollClassDetails = () => {
     });
   };
 
+  const isArray = Array.isArray(myAssignments);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = myAssignments?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = isArray
+    ? myAssignments.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
   return (
     <div>

@@ -53,7 +53,7 @@ const MyEnrollClass = () => {
               </div>
 
               <div className="pt-3 flex justify-end">
-                <Link to={`/dashboard/my-enroll-class/${enrollmentData._id}`}>
+                <Link to={`/dashboard/my-enroll-class/${enrollmentData.classId}`}>
                   <button className="btn btn-primary btn-sm rounded-full">
                     Continue Class
                   </button>
