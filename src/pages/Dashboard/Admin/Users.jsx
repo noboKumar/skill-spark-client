@@ -88,7 +88,7 @@ const Users = () => {
                 <td>{index + 1}</td>
                 <td>
                   <img
-                    className="w-36 h-36 object-cover object-top rounded-2xl"
+                    className="w-36 md:h-36 object-cover object-top rounded-2xl"
                     src={data.photoURL}
                     alt=""
                   />

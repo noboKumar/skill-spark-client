@@ -13,7 +13,7 @@ const DashboardNavbar = () => {
           <div className="lg:hidden">
             <label
               htmlFor="responsive-drawer"
-              className="btn btn-ghost drawer-button"
+              className="btn btn-ghost drawer-button px-0"
             >
               <GiHamburgerMenu className="text-xl" />
             </label>
