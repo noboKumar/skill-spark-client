@@ -22,6 +22,7 @@ import AllClassesRequest from "../pages/Dashboard/Admin/AllClassesRequest";
 import ClassDetails from "../pages/ClassDetails";
 import MyClassDetails from "../pages/Dashboard/Teacher/MyClassDetails";
 import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrollClassDetails";
+import NotFound404 from "../pages/NotFound404";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
         path: "/register",
         Component: Register,
       },
+      {
+        path: "*",
+        Component: NotFound404,
+      }
     ],
   },
   {
