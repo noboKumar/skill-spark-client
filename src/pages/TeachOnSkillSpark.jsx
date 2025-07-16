@@ -8,6 +8,7 @@ import useRole from "../hooks/useRole";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import useStatus from "../hooks/useStatus";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
+import { Helmet } from "react-helmet";
 
 const TeachOnSkillSpark = () => {
   const { user } = useAuth();
@@ -51,6 +52,9 @@ const TeachOnSkillSpark = () => {
     return (
       <>
         <div className="flex flex-col items-center justify-center bg-success/10 border border-success p-6 rounded-xl shadow-sm mt-10 max-w-xl mx-auto">
+          <Helmet>
+            <title>Skill Spark | become a teacher</title>
+          </Helmet>
           <FaChalkboardTeacher className="text-4xl text-success mb-3" />
           <h2 className="text-xl font-semibold text-success">
             You're already a teacher!

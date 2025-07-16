@@ -6,6 +6,7 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { uploadImage } from "../../../API/utils";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet";
 
 const AddClass = () => {
   const { user } = useAuth();
@@ -59,6 +60,9 @@ const AddClass = () => {
   };
   return (
     <div className="max-w-3xl mx-auto bg-base-200 shadow-lg rounded-xl p-10 mt-8">
+      <Helmet>
+        <title>Skill Spark|add classes</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center text-primary mb-6">
         Add a New Class
       </h1>

@@ -4,6 +4,7 @@ import AssignmentModal from "./AssignmentModal";
 import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import { useParams } from "react-router";
+import { Helmet } from "react-helmet";
 
 const MyClassDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +22,11 @@ const MyClassDetails = () => {
     },
   });
 
-
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Helmet>
+        <title>Skill Spark|my class details</title>
+      </Helmet>
       <div>
         <h1 className="text-3xl font-bold text-center mb-10 text-primary">
           Class Progress

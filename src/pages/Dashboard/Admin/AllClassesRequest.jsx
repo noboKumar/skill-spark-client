@@ -7,6 +7,7 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { FaChartLine } from "react-icons/fa";
 import ProgressModal from "./ProgressModal";
+import { Helmet } from "react-helmet";
 
 const AllClassesRequest = () => {
   const QueryClient = useQueryClient();
@@ -89,6 +90,9 @@ const AllClassesRequest = () => {
   const currentItems = allClasses?.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | All Classes Requests</title>
+      </Helmet>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
         <table className="table">
           {/* head */}

@@ -5,6 +5,7 @@ import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import Pagination from "../../../components/UI/Pagination";
 import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const Users = () => {
   const QueryClient = useQueryClient();
@@ -69,6 +70,9 @@ const Users = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | all users</title>
+      </Helmet>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
         <table className="table">
           {/* head */}

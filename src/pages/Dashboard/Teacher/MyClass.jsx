@@ -13,6 +13,7 @@ import { Link } from "react-router";
 import UpdateMyClassModal from "./UpdateMyClassModal";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -83,6 +84,9 @@ const MyClass = () => {
 
   return (
     <div className="w-11/12 mx-auto px-4 py-10">
+      <Helmet>
+        <title>Skill Spark|my classes</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center mb-10 text-primary flex items-center justify-center gap-2">
         <FaChalkboardTeacher className="text-4xl text-primary" />
         My Added Classes

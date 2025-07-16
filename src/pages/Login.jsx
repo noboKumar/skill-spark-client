@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useSaveUser from "../hooks/useSaveUser";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const { googleSignIn } = useAuth();
@@ -59,6 +60,9 @@ const Login = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | login</title>
+      </Helmet>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
         {/* Placeholder image instead of animation */}
         <div className="w-full md:w-1/2 lg:w-1/3 max-w-md">

@@ -7,6 +7,7 @@ import { FaCheck, FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import Pagination from "../../../components/UI/Pagination";
+import { Helmet } from "react-helmet";
 
 const TeacherRequest = () => {
   const { user } = useAuth();
@@ -121,6 +122,9 @@ const TeacherRequest = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | Teacher requests</title>
+      </Helmet>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
         <table className="table">
           {/* head */}

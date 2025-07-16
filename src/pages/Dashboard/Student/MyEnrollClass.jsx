@@ -5,6 +5,7 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { Link } from "react-router";
+import { Helmet } from "react-helmet";
 
 const MyEnrollClass = () => {
   const { user } = useAuth();
@@ -22,6 +23,9 @@ const MyEnrollClass = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | my classes</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center my-10 divider">
         My Enroll Class
       </h1>

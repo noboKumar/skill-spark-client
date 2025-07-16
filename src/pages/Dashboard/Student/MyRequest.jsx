@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Pagination from "../../../components/UI/Pagination";
 import { FaRegPaperPlane } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const MyRequest = () => {
   const { user } = useAuth();
@@ -39,6 +40,9 @@ const MyRequest = () => {
   }
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | my request</title>
+      </Helmet>
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
         <table className="table">
           {/* head */}

@@ -3,6 +3,7 @@ import { FaEnvelope, FaPhoneAlt, FaUserTag } from "react-icons/fa";
 import coverPhoto from "../../assets/online-education-cover.jpg";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
+import { Helmet } from "react-helmet";
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -10,6 +11,9 @@ const UserProfile = () => {
 
   return (
     <div className="border-2 border-gray-300 rounded-xl p-10 bg-base-100">
+      <Helmet>
+        <title>Skill Spark | My profile</title>
+      </Helmet>
       <div className="relative">
         {/* Cover Photo */}
         <img

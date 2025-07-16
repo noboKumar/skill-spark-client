@@ -8,6 +8,7 @@ import { uploadImage } from "../API/utils";
 import useSaveUser from "../hooks/useSaveUser";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const { createUser, googleSignIn, setUser, updateUser } = useAuth();
@@ -84,6 +85,9 @@ const Register = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | register</title>
+      </Helmet>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
         {/* Placeholder image instead of animation */}
         <div className="w-full md:w-1/2 lg:w-1/3 max-w-md">

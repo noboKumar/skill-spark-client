@@ -4,6 +4,7 @@ import Pagination from "../components/UI/Pagination";
 import { Link } from "react-router";
 import { axiosPublic } from "../API/utils";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
+import { Helmet } from "react-helmet";
 
 const AllClasses = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +24,9 @@ const AllClasses = () => {
   const currentItems = allClasses?.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | all classes</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center mb-10 text-primary divider heading-font">
         All Classes
       </h1>
@@ -58,7 +62,8 @@ const AllClasses = () => {
                     <span className="font-medium">Email:</span> {data.email}
                   </p>
                   <p>
-                    <span className="font-medium">Enrollment:</span> {data.total_enrollment}
+                    <span className="font-medium">Enrollment:</span>{" "}
+                    {data.total_enrollment}
                   </p>
                 </div>
               </div>

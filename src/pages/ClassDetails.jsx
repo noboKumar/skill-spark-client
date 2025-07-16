@@ -8,6 +8,7 @@ import LoadingSpinner from "../components/UI/LoadingSpinner";
 import useAuth from "../hooks/useAuth";
 import PaymentModal from "../components/payment/PaymentModal";
 import useRole from "../hooks/useRole";
+import { Helmet } from "react-helmet";
 
 const ClassDetails = () => {
   const { id } = useParams();
@@ -29,6 +30,9 @@ const ClassDetails = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Helmet>
+        <title>Skill Spark | class details</title>
+      </Helmet>
       <div className="bg-base-200 shadow-lg rounded-xl overflow-hidden border-2 border-gray-400">
         <img src={image} alt={title} className="w-full md:h-96 object-cover" />
         <div className="p-6 space-y-4">

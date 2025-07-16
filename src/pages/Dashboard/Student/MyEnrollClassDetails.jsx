@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import { FaClipboardList } from "react-icons/fa";
 import FeedBackModal from "./FeedBackModal";
 import useAuth from "../../../hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 const MyEnrollClassDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,6 +73,9 @@ const MyEnrollClassDetails = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | my class details</title>
+      </Helmet>
       <div className="flex justify-end">
         <button
           onClick={() => setIsOpen(true)}
