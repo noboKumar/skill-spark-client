@@ -4,9 +4,11 @@ import { FaChevronDown, FaTachometerAlt, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DropDownAvatar = () => {
   const { user, logOutUser } = useAuth();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     Swal.fire({
@@ -20,6 +22,7 @@ const DropDownAvatar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         logOutUser();
+        queryClient.clear();
         toast.success("Successfully logged out!");
       }
     });
@@ -28,7 +31,11 @@ const DropDownAvatar = () => {
   return (
     <div className="dropdown dropdown-end">
       {/* Trigger Button */}
-      <div tabIndex={0} role="button" className="flex items-center gap-2 cursor-pointer p-2 border border-gray-300 rounded-full hover:shadow-md transition">
+      <div
+        tabIndex={0}
+        role="button"
+        className="flex items-center gap-2 cursor-pointer p-2 border border-gray-300 rounded-full hover:shadow-md transition"
+      >
         <img
           src={user?.photoURL}
           alt="profile"

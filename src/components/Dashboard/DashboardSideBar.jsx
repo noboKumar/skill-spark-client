@@ -16,10 +16,12 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import useRole from "../../hooks/useRole";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DashboardSideBar = () => {
   const { user, logOutUser } = useAuth();
   const { role } = useRole(user?.email);
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     Swal.fire({
@@ -33,6 +35,7 @@ const DashboardSideBar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         logOutUser();
+        queryClient.clear();
         toast.success("Successfully logged out!");
       }
     });
