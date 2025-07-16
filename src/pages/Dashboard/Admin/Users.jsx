@@ -16,6 +16,7 @@ const Users = () => {
     data: users,
     isLoading,
     error,
+    isFetching,
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -61,7 +62,7 @@ const Users = () => {
     ? users.slice(indexOfFirstItem, indexOfLastItem)
     : [];
 
-  if (!users || users.length === 0 || isLoading) {
+  if (isLoading || isFetching) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (error) {

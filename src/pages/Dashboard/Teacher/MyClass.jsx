@@ -14,6 +14,7 @@ import UpdateMyClassModal from "./UpdateMyClassModal";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 
 const MyClass = () => {
   const { user } = useAuth();
@@ -60,6 +61,11 @@ const MyClass = () => {
       }
     });
   };
+
+  if (!myClasses) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
 
   if (!myClasses || myClasses.length === 0) {
     return (

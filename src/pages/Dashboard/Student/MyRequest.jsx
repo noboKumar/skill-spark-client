@@ -5,19 +5,28 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Pagination from "../../../components/UI/Pagination";
 import { FaRegPaperPlane } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import LoadingSpinner from "../../../components/UI/LoadingSpinner";
 
 const MyRequest = () => {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { data: myRequest } = useQuery({
+  const {
+    data: myRequest,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["get-my-request"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/my-requests/${user?.email}`);
       return res.data;
     },
   });
+  if (isLoading || isFetching) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = myRequest?.slice(indexOfFirstItem, indexOfLastItem);

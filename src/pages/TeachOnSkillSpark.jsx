@@ -45,7 +45,7 @@ const TeachOnSkillSpark = () => {
     sendRequest(data);
     reset();
   };
-  if (roleLoading) {
+  if (roleLoading || role === undefined || role === null) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (role === "teacher") {
