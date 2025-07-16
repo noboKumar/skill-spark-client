@@ -7,10 +7,14 @@ import FeedBackSection from "../components/sections/Home/FeedBackSection";
 import TotalUsersSection from "../components/sections/Home/TotalUsersSection";
 import MeetOurTeachers from "../components/sections/Home/MeetOurTeachers";
 import QnaSection from "../components/sections/Home/QnaSection";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Skill Spark | Home</title>
+      </Helmet>
       <BannerSection></BannerSection>
       <PartnershipSection></PartnershipSection>
       <HighlightSection></HighlightSection>
