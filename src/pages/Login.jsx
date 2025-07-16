@@ -61,13 +61,13 @@ const Login = () => {
     <div>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
         {/* Placeholder image instead of animation */}
-        <div className="w-1/3">
-          <Lottie animationData={animationData} />
+        <div className="w-full md:w-1/2 lg:w-1/3 max-w-md">
+          <Lottie animationData={animationData} className="w-full h-auto" />
         </div>
 
         {/* Form */}
-        <div className="space-y-5 ">
-          <h1 className="md:text-4xl text-xl font-bold">
+        <div className="space-y-5">
+          <h1 className="md:text-3xl lg:text-4xl text-xl font-bold">
             Login to Your Account
           </h1>
 
