@@ -86,12 +86,12 @@ const Register = () => {
     <div>
       <div className="w-full shrink-0 md:flex items-center md:gap-10 justify-center">
         {/* Placeholder image instead of animation */}
-        <div>
+        <div className="w-full md:w-1/2 lg:w-1/3 max-w-md">
           <Lottie animationData={animationData} />
         </div>
 
         {/* Form */}
-        <div className="space-y-5 md:min-w-xl">
+        <div className="space-y-5 lg:min-w-xl">
           <h1 className="md:text-4xl text-xl font-bold">Create an Account</h1>
 
           <form onSubmit={handleSubmit(handleRegister)} className="space-y-5">
