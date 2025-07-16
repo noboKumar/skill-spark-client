@@ -155,7 +155,14 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: true,
+                    pattern: {
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/,
+                      message:
+                        "Password must be at least 8 characters and include 1 uppercase, 1 lowercase, and a special character",
+                    },
+                  })}
                   type={showPassword ? "text" : "password"}
                   placeholder="MySecureP@ss123"
                   className="input w-full"
@@ -167,12 +174,12 @@ const Register = () => {
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
-                {errors.password && (
-                  <span className="text-error text-sm">
-                    Please Enter Your Password
-                  </span>
-                )}
               </div>
+              {errors.password && (
+                <span className="text-error text-sm">
+                  {errors.password.message}
+                </span>
+              )}
             </div>
 
             {/* Register button */}

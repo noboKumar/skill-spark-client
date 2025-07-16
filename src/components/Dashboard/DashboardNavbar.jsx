@@ -18,7 +18,7 @@ const DashboardNavbar = () => {
               <GiHamburgerMenu className="text-xl" />
             </label>
           </div>
-          <h1 className="text-3xl font-bold my-4">Dashboard</h1>
+          <h1 className="text-3xl font-bold my-4 heading-font">Dashboard</h1>
         </div>
         <div className="flex items-center gap-4">
           <ToggleTheme />

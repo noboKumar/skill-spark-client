@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const ToggleTheme = () => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "dark";
+    return localStorage.getItem("theme") || "light";
   });
   // Sync theme to localStorage and html[data-theme] attribute
   useEffect(() => {
