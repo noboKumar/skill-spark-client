@@ -54,7 +54,6 @@ const FeedBackModal = ({ isOpen, setIsOpen, classInfo }) => {
 
   const handleRating = (rate) => {
     setRating(rate);
-    console.log(rate);
   };
 
   return (

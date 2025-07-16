@@ -69,10 +69,7 @@ const UpdateMyClassModal = ({ isOpen, setIsOpen, classId }) => {
             <FaEdit /> Update Class Info
           </DialogTitle>
 
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5 "
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 ">
             {/* Title */}
             <div>
               <label className="label font-semibold">Title</label>

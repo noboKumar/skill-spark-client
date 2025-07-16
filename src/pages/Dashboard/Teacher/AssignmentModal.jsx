@@ -41,7 +41,6 @@ const AssignmentModal = ({ isOpen, setIsOpen }) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     data.classId = id;
 
     assignmentData(data);

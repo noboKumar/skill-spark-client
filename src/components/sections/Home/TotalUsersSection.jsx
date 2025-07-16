@@ -15,7 +15,6 @@ const TotalUsersSection = () => {
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  console.log(allUsersData);
   return (
     <div>
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 mb-20">

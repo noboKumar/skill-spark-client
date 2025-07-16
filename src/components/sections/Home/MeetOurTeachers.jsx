@@ -16,7 +16,6 @@ const MeetOurTeachers = () => {
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  console.log(teacherData);
   return (
     <div className="mb-20 px-4">
       <HeadingText>Meet Our Teachers</HeadingText>

@@ -21,7 +21,6 @@ const FeedBackSection = () => {
   if (!feedbackData || feedbackData.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
-  console.log(feedbackData);
   return (
     <div className="mb-20">
       <HeadingText>Students FeedBack</HeadingText>
