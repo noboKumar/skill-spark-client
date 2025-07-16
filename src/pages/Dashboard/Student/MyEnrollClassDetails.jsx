@@ -17,7 +17,6 @@ const MyEnrollClassDetails = () => {
   const { user } = useAuth();
   const itemsPerPage = 10;
   const { id } = useParams();
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { data: myAssignments } = useQuery({
     queryKey: ["myAssignments", id],
@@ -27,7 +26,7 @@ const MyEnrollClassDetails = () => {
     },
   });
 
-  const { mutate: submitAssignment, isPending } = useMutation({
+  const { mutate: submitAssignment } = useMutation({
     mutationKey: ["submit-assignment"],
     mutationFn: async () => {
       const { data } = await axiosSecure.patch(`/assignment-submit/${id}`);
@@ -35,7 +34,6 @@ const MyEnrollClassDetails = () => {
     },
     onSuccess: () => {
       toast.success("Assignment submitted successfully!");
-      setIsSubmitted(true);
     },
     onError: () => {
       toast.error("Assignment submission failed.");
@@ -49,7 +47,6 @@ const MyEnrollClassDetails = () => {
       return data;
     },
   });
-  console.log(myAssignments);
   const classInfo = myEnrollments?.find((data) => data._id === id);
 
   const handleSubmit = () => {
@@ -114,7 +111,6 @@ const MyEnrollClassDetails = () => {
                 <td>
                   <button
                     onClick={handleSubmit}
-                    disabled={isPending || isSubmitted}
                     className="btn btn-primary btn-sm flex items-center gap-2"
                   >
                     <FaCheckCircle className="text-lg" />
