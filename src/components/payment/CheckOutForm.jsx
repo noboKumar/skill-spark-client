@@ -16,7 +16,7 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
 
-  const { mutate: increaseEnrollment } = useMutation({
+  const { mutateAsync: increaseEnrollment } = useMutation({
     mutationKey: ["increase-enrollment"],
     mutationFn: async () => {
       const { data } = await axiosPublic.patch(
@@ -26,7 +26,7 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
     },
   });
 
-  const { mutate: enrollmentHistory } = useMutation({
+  const { mutateAsync: enrollmentHistory } = useMutation({
     mutationKey: ["enrollment-history"],
     mutationFn: async (enrollmentData) => {
       const { data } = await axiosPublic.post("/enrollments", enrollmentData);
@@ -74,12 +74,12 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
       setError(error.message);
     } else if (paymentIntent.status === "succeeded") {
       const transactionId = paymentIntent.id;
-      setIsOpen(false);
       toast.success("Payment successful!");
+      const { _id, ...classData } = classDetails;
 
       // send payment info to server
       const enrollmentData = {
-        ...classDetails,
+        ...classData,
         transactionId,
         student_email: user?.email,
         student_name: user?.displayName,
@@ -87,11 +87,15 @@ const CheckOutForm = ({ price, setIsOpen, id, classDetails }) => {
         purchased_at: new Date().toISOString(),
       };
 
-      enrollmentHistory(enrollmentData);
-
-      // increase enrollment count
-      increaseEnrollment();
-      navigate("/dashboard/my-enroll-class");
+      try {
+        await enrollmentHistory(enrollmentData);
+        await increaseEnrollment();
+        setIsOpen(false);
+        navigate("/dashboard/my-enroll-class");
+      } catch (err) {
+        console.error("Post-payment error:", err);
+        toast.error("Something went wrong. Please contact support.");
+      }
     }
     setProcessing(false);
   };
