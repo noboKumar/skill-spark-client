@@ -10,7 +10,7 @@ const Users = () => {
   const QueryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  
+
   const {
     data: users,
     isLoading,
@@ -18,7 +18,7 @@ const Users = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("all-users");
+      const { data } = await axiosSecure.get("/all-users");
       return data;
     },
   });
@@ -53,11 +53,14 @@ const Users = () => {
     });
   };
 
+  const isArray = Array.isArray(users);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = isArray
+    ? users.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
-  if (isLoading) {
+  if (!users || users.length === 0 || isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (error) {
@@ -80,7 +83,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {currentItems?.map?.((data, index) => (
+            {(currentItems || []).map((data, index) => (
               <tr key={data._id}>
                 <td>{index + 1}</td>
                 <td>

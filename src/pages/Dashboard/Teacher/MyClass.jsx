@@ -97,7 +97,7 @@ const MyClass = () => {
               <img
                 src={data.image}
                 alt={data.title}
-                className="w-full h-52 object-cover"
+                className="w-full md:h-52 object-cover"
               />
             </figure>
             <div className="card-body space-y-2">
@@ -125,7 +125,7 @@ const MyClass = () => {
                   {data.status}
                 </span>
               </div>
-              <div className="card-actions justify-between pt-4">
+              <div className="card-actions lg:justify-between pt-4">
                 <button
                   onClick={() => {
                     setIsOpen(true);

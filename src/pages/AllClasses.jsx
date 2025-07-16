@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Pagination from "../components/UI/Pagination";
 import { Link } from "react-router";
 import { axiosPublic } from "../API/utils";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 const AllClasses = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +15,9 @@ const AllClasses = () => {
       return data;
     },
   });
+  if (!allClasses || allClasses.length === 0) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = allClasses?.slice(indexOfFirstItem, indexOfLastItem);
