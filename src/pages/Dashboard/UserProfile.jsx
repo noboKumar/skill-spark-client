@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEnvelope, FaPhoneAlt, FaUserTag } from "react-icons/fa";
-import coverPhoto from "../../assets/online-education-cover.jpg";
+import coverPhoto from "../../assets/online-education-cover.webp";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 import { Helmet } from "react-helmet";

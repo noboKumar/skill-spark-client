@@ -1,5 +1,5 @@
 import React from "react";
-import teacherImg from "../../../assets/become-a-teacher.jpg";
+import teacherImg from "../../../assets/become-a-teacher.webp";
 import { Link } from "react-router";
 
 const BecomeATeacher = () => {
