@@ -13,6 +13,18 @@
 .active {
   @apply bg-primary text-white rounded-full;
 }
+@keyframes blink {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 2s infinite;
+}
 
 :root {
   /* Brand Colors */
