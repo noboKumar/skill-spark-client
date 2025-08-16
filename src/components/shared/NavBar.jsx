@@ -13,14 +13,14 @@ const NavBar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink className={"hover: rounded-full"} to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/all-classes">All Classes</NavLink>
+        <NavLink className={"hover: rounded-full"} to="/all-classes">All Classes</NavLink>
       </li>
       {user && (
         <li>
-          <NavLink to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
+          <NavLink className={"hover: rounded-full"} to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
         </li>
       )}
     </>
