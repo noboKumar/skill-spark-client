@@ -23,6 +23,7 @@ import ClassDetails from "../pages/ClassDetails";
 import MyClassDetails from "../pages/Dashboard/Teacher/MyClassDetails";
 import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrollClassDetails";
 import NotFound404 from "../pages/NotFound404";
+import ContactUs from "../pages/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/all-classes",
         Component: AllClasses,
+      },
+      {
+        path: "/contact-us",
+        Component: ContactUs,
       },
       {
         path: "/classes/:id",
@@ -64,7 +69,7 @@ export const router = createBrowserRouter([
       {
         path: "*",
         Component: NotFound404,
-      }
+      },
     ],
   },
   {

@@ -13,14 +13,25 @@ const NavBar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink className={"hover: rounded-full"} to="/">Home</NavLink>
+        <NavLink className={"hover: rounded-full"} to="/">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink className={"hover: rounded-full"} to="/all-classes">All Classes</NavLink>
+        <NavLink className={"hover: rounded-full"} to="/all-classes">
+          All Classes
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className={"hover: rounded-full"} to="/contact-us">
+          Contact Us
+        </NavLink>
       </li>
       {user && (
         <li>
-          <NavLink className={"hover: rounded-full"} to="/teach-on-skill-spark">Teach on Skill Spark</NavLink>
+          <NavLink className={"hover: rounded-full"} to="/teach-on-skill-spark">
+            Teach on Skill Spark
+          </NavLink>
         </li>
       )}
     </>
@@ -30,7 +41,11 @@ const NavBar = () => {
       <Container className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden px-0 ">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden px-0 "
+            >
               <AiOutlineMenu size={20} />
             </div>
             <ul
