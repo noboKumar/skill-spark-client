@@ -7,15 +7,26 @@ import LoadingSpinner from "../components/UI/LoadingSpinner";
 import { Helmet } from "react-helmet";
 
 const AllClasses = () => {
+  const [sortOption, setSortOption] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
   const { data: allClasses } = useQuery({
-    queryKey: ["allClasses"],
+    queryKey: ["allClasses", sortOption],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/accepted-classes");
+      const { data } = await axiosPublic.get("/accepted-classes", {
+        params: { sort: sortOption }
+      });
       return data;
     },
   });
+
+  // handle sorting
+  const handleSorting = (e) => {
+    const value = e.target.value;
+    setSortOption(value);
+  };
+
   if (!allClasses || allClasses.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
@@ -27,9 +38,23 @@ const AllClasses = () => {
       <Helmet>
         <title>Skill Spark | all classes</title>
       </Helmet>
-      <h1 className="text-3xl font-bold text-center mb-10 text-primary divider heading-font">
+      <h1 className="text-3xl font-bold text-center mb-5 text-primary divider heading-font">
         All Classes
       </h1>
+      {/* Sorting */}
+      <div className="py-5">
+        <select
+          onChange={handleSorting}
+          defaultValue="Sort By"
+          className="select cursor-pointer"
+        >
+          <option disabled={true}>Sort By</option>
+          <option value={"high-low"}>Sort by High-Low</option>
+          <option value={"low-high"}>Sort by Low-High</option>
+          <option value={"reset"}>Reset</option>
+        </select>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {(currentItems || []).map((data) => (
           <div
