@@ -22,7 +22,7 @@ export default function ContactUs() {
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
       {/* Hero Section */}
-      <section className="relative bg-primary text-primary-content py-20 px-6 text-center rounded-2xl">
+      <section className="relative bg-base-200 py-20 px-6 text-center rounded-2xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
         <p className="max-w-2xl mx-auto text-lg opacity-90">
           Have questions, suggestions, or want to collaborate? Reach out to us
