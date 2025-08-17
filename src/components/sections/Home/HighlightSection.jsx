@@ -3,11 +3,6 @@ import HeadingText from "../../UI/HeadingText";
 import { useQuery } from "@tanstack/react-query";
 import { FaUsers } from "react-icons/fa";
 import { IoIosPricetags } from "react-icons/io";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/bundle";
 import { Link } from "react-router";
 import { axiosPublic } from "../../../API/utils";
 import LoadingSpinner from "../../UI/LoadingSpinner";
