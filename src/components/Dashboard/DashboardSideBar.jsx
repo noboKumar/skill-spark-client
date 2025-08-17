@@ -9,6 +9,7 @@ import {
   FaRegUser,
   FaSignOutAlt,
   FaRegClipboard,
+  FaChartBar,
 } from "react-icons/fa";
 import { MdLibraryBooks } from "react-icons/md";
 import Logo from "../UI/Logo";
@@ -106,6 +107,11 @@ const DashboardSideBar = () => {
           <li>
             <NavLink to="/dashboard" end>
               <FaRegUser /> Profile
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/overview">
+              <FaChartBar className="mr-2" /> Overview
             </NavLink>
           </li>
         </ul>

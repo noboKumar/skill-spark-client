@@ -24,6 +24,7 @@ import MyClassDetails from "../pages/Dashboard/Teacher/MyClassDetails";
 import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrollClassDetails";
 import NotFound404 from "../pages/NotFound404";
 import ContactUs from "../pages/ContactUs";
+import DashboardOverview from "../pages/Dashboard/DashboardOverview";
 
 export const router = createBrowserRouter([
   {
@@ -93,6 +94,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <UserProfile />
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "overview",
+        element: (
+          <PrivateRouter>
+            <DashboardOverview></DashboardOverview>
           </PrivateRouter>
         ),
       },
