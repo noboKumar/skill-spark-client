@@ -28,11 +28,24 @@ const NavBar = () => {
         </NavLink>
       </li>
       {user && (
-        <li>
-          <NavLink className={"hover: rounded-full"} to="/teach-on-skill-spark">
-            Teach on Skill Spark
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink
+              className={"hover: rounded-full"}
+              to="/teach-on-skill-spark"
+            >
+              Become a Teacher
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={"hover: rounded-full"}
+              to="/dashboard"
+            >
+              Profile
+            </NavLink>
+          </li>
+        </>
       )}
     </>
   );
