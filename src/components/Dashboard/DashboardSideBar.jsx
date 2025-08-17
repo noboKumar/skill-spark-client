@@ -55,12 +55,20 @@ const DashboardSideBar = () => {
           {role === "student" && (
             <>
               <li>
-                <NavLink to="/dashboard/my-enroll-class" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/my-enroll-class"
+                  end
+                >
                   <FaBookOpen /> My Enroll Class
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/my-request" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/my-request"
+                  end
+                >
                   <FaRegClipboard /> My Request
                 </NavLink>
               </li>
@@ -71,12 +79,20 @@ const DashboardSideBar = () => {
           {role === "teacher" && (
             <>
               <li>
-                <NavLink to="/dashboard/add-class" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/add-class"
+                  end
+                >
                   <FaChalkboardTeacher /> Add Class
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/my-class" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/my-class"
+                  end
+                >
                   <MdLibraryBooks /> My Class
                 </NavLink>
               </li>
@@ -87,17 +103,29 @@ const DashboardSideBar = () => {
           {role === "admin" && (
             <>
               <li>
-                <NavLink to="/dashboard/teacher-request" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/teacher-request"
+                  end
+                >
                   <FaUserCheck /> Teacher Request
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/users" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/users"
+                  end
+                >
                   <FaUsers /> Users
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/all-classes-request" end>
+                <NavLink
+                  className={"hover:rounded-full"}
+                  to="/dashboard/all-classes-request"
+                  end
+                >
                   <FaListAlt /> All Classes
                 </NavLink>
               </li>
@@ -105,12 +133,12 @@ const DashboardSideBar = () => {
           )}
           {/* Shared Menu */}
           <li>
-            <NavLink to="/dashboard" end>
+            <NavLink className={"hover:rounded-full"} to="/dashboard" end>
               <FaRegUser /> Profile
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/overview">
+            <NavLink className={"hover:rounded-full"} to="/dashboard/overview">
               <FaChartBar className="mr-2" /> Overview
             </NavLink>
           </li>
