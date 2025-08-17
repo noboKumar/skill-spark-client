@@ -40,7 +40,7 @@ const BannerSection = () => {
       spaceBetween={50}
       slidesPerView={1}
       loop={bannerData.length > 3}
-      autoplay={{ delay: 2500, disableOnInteraction: false }}
+      autoplay={{ delay: 3000, disableOnInteraction: false }}
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
       className="mySwiper"
