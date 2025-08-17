@@ -2,8 +2,19 @@ import React from "react";
 import Container from "../UI/Container";
 import Logo from "../UI/Logo";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Footer = () => {
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      icon: "success",
+      title: "You have successfully Subscribed!!!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    e.target.reset();
+  };
   return (
     <footer className="bg-base-200">
       <Container className="footer sm:footer-horizontal text-base-content p-10">
@@ -47,16 +58,35 @@ const Footer = () => {
         </nav>
 
         <nav>
-          <h6 className="footer-title">Legal</h6>
-          <a className="link link-hover" href="/">
-            Terms of Service
-          </a>
-          <a className="link link-hover" href="/">
-            Privacy Policy
-          </a>
-          <a className="link link-hover" href="/">
-            Cookie Policy
-          </a>
+          <h6 className="footer-title">Join Us Today</h6>
+          <p>Subscribe to get latest news and offer</p>
+          <form onSubmit={handleSubscribe} className="join">
+            <div>
+              <label className="input validator join-item">
+                <svg
+                  className="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </g>
+                </svg>
+                <input type="email" placeholder="mail@site.com" required />
+              </label>
+              <div className="validator-hint hidden">
+                Enter valid email address
+              </div>
+            </div>
+            <button className="btn btn-primary join-item">Join</button>
+          </form>
         </nav>
       </Container>
     </footer>
