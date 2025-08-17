@@ -3,6 +3,8 @@ import React from "react";
 import { axiosPublic } from "../../../API/utils";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import illustrator from "../../../assets/Webinar-bro.svg";
+import CountUp from "react-countup";
+import { FaUsers, FaChalkboardTeacher, FaBook } from "react-icons/fa";
 
 const TotalUsersSection = () => {
   const { data: allUsersData, isLoading } = useQuery({
@@ -12,47 +14,54 @@ const TotalUsersSection = () => {
       return data;
     },
   });
-  if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
+
+  if (isLoading) return <LoadingSpinner />;
+
+  const stats = [
+    {
+      id: 1,
+      label: "Total Users",
+      value: allUsersData.totalUsers,
+      icon: <FaUsers className="text-primary text-4xl" />,
+    },
+    {
+      id: 2,
+      label: "Total Classes",
+      value: allUsersData.totalClasses,
+      icon: <FaChalkboardTeacher className="text-primary text-4xl" />,
+    },
+    {
+      id: 3,
+      label: "Total Enrollments",
+      value: allUsersData.totalEnrollments,
+      icon: <FaBook className="text-primary text-4xl" />,
+    },
+  ];
+
   return (
-    <div>
+    <div className="my-20 px-4 md:px-10">
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
-        {/* Stats Card */}
-        <div className="bg-base-200 p-8 rounded-4xl w-full md:w-1/2 space-y-5 shadow-inner border border-gray-200">
-          <h2 className="text-3xl font-bold text-primary mb-4">
-            Total Users
-          </h2>
-
-          <div className="flex flex-col items-center justify-between bg-white p-4 rounded-full shadow">
-            <span className="text-lg font-medium text-gray-600">
-              Total Users
-            </span>
-            <span className="text-4xl font-bold text-primary">
-              {allUsersData.totalUsers}
-            </span>
-          </div>
-
-          <div className="flex flex-col items-center justify-between bg-white p-4 rounded-full shadow">
-            <span className="text-lg font-medium text-gray-600">
-              Total Classes
-            </span>
-            <span className="text-4xl font-bold text-primary">
-              {allUsersData.totalClasses}
-            </span>
-          </div>
-
-          <div className="flex flex-col items-center justify-between bg-white p-4 rounded-full shadow">
-            <span className="text-lg font-medium text-gray-600">
-              Total Students
-            </span>
-            <span className="text-4xl font-bold text-primary">
-              {allUsersData.totalEnrollments}
-            </span>
-          </div>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6 w-full md:w-1/2">
+          {stats.map((stat) => (
+            <div
+              key={stat.id}
+              className="flex items-center gap-5 p-6 rounded-4xl bg-base-200 border border-gray-200 shadow-inner"
+            >
+              <div className="p-4 bg-primary/10 rounded-full">{stat.icon}</div>
+              <div className="flex flex-col">
+                <h3 className="text-4xl font-bold text-primary">
+                  <CountUp enableScrollSpy={true} end={stat.value} duration={3} suffix="+" />
+                </h3>
+                <p className="text-lg font-medium text-gray-600">
+                  {stat.label}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Right Side Illustration */}
+        {/* Illustration */}
         <div className="w-full md:w-2/5">
           <img
             src={illustrator}
