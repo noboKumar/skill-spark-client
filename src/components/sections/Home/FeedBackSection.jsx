@@ -22,7 +22,7 @@ const FeedBackSection = () => {
     return <LoadingSpinner></LoadingSpinner>;
   }
   return (
-    <div className="mb-20">
+    <div className="my-20">
       <HeadingText>Students FeedBack</HeadingText>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}

@@ -24,7 +24,7 @@ const marqueeItems = [
 
 const PartnershipSection = () => {
   return (
-    <div className="relative py-20">
+    <div className="relative pb-20">
       <h1 className="text-3xl font-semibold text-center my-10">
         Our Trusted Partners & Platforms
       </h1>

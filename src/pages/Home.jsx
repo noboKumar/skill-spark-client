@@ -16,11 +16,11 @@ const Home = () => {
         <title>Skill Spark | Home</title>
       </Helmet>
       <BannerSection></BannerSection>
-      <PartnershipSection></PartnershipSection>
       <HighlightSection></HighlightSection>
       <FeedBackSection></FeedBackSection>
       <TotalUsersSection></TotalUsersSection>
       <BecomeATeacher></BecomeATeacher>
+      <PartnershipSection></PartnershipSection>
       <MeetOurTeachers></MeetOurTeachers>
       <QnaSection></QnaSection>
     </div>

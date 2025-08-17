@@ -17,7 +17,7 @@ const TotalUsersSection = () => {
   }
   return (
     <div>
-      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 mb-20">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
         {/* Stats Card */}
         <div className="bg-base-200 p-8 rounded-4xl w-full md:w-1/2 space-y-5 shadow-inner border border-gray-200">
           <h2 className="text-3xl font-bold text-primary mb-4">
@@ -53,7 +53,7 @@ const TotalUsersSection = () => {
         </div>
 
         {/* Right Side Illustration */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-2/5">
           <img
             src={illustrator}
             alt="Statistics Illustration"
