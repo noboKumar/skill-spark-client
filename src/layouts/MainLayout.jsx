@@ -6,15 +6,23 @@ import { Toaster } from "react-hot-toast";
 import PageLoading from "../components/UI/PageLoading";
 
 const MainLayout = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        localStorage.setItem("hasVisited", "true");
+      }, 2000);
+    }
   }, []);
+
   if (loading) {
-    return <PageLoading></PageLoading>;
+    return <PageLoading />;
   }
+
   return (
     <div className="body-font">
       <NavBar />
