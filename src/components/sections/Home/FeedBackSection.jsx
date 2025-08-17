@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import { Rating } from "react-simple-star-rating";
+import { FaQuoteLeft } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -35,12 +36,16 @@ const FeedBackSection = () => {
       >
         {feedbackData.map((slider, index) => (
           <SwiperSlide key={index}>
-            <div className="p-5 bg-base-200 rounded-2xl border-2 border-gray-300 flex flex-col justify-center mx-auto text-center space-y-5 h-[500px]">
+            <div className="relative p-5 bg-base-200 rounded-2xl border-2 border-gray-300 flex flex-col justify-center mx-auto text-center space-y-5 h-[500px]">
+              {/* Decorative quote */}
+              <FaQuoteLeft className="absolute top-5 md:left-1/5 text-primary text-8xl opacity-10 pointer-events-none" />
+
               <div className="avatar">
                 <div className="ring-primary ring-offset-base-100 w-36 rounded-full ring-2 ring-offset-2 mx-auto">
                   <img src={slider.student_image} alt="" />
                 </div>
               </div>
+
               <div className="space-y-2 flex flex-col justify-between items-center">
                 <h1 className="text-xl font-semibold">{slider.student_name}</h1>
                 <p className="text-lg w-1/2 mx-auto line-clamp-4">
@@ -51,7 +56,7 @@ const FeedBackSection = () => {
                   readonly
                   size="30"
                   SVGstyle={{ display: "inline" }}
-                ></Rating>
+                />
                 <h3 className="text-lg font-semibold text-primary">
                   {slider.class_name}
                 </h3>
