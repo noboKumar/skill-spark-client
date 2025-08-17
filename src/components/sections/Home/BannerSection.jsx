@@ -4,7 +4,7 @@ import slider2 from "../../../assets/slider-2.webp";
 import slider3 from "../../../assets/slider-3.webp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/bundle";
 import { Link } from "react-router";
@@ -36,7 +36,7 @@ const bannerData = [
 const BannerSection = () => {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
+      modules={[Navigation, Pagination, Autoplay, EffectFade]}
       spaceBetween={50}
       slidesPerView={1}
       loop={bannerData.length > 3}
@@ -44,6 +44,7 @@ const BannerSection = () => {
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
       className="mySwiper"
+      effect="fade"
     >
       {bannerData.map((slider, index) => (
         <SwiperSlide key={index}>
