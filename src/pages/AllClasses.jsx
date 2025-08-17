@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 
 const AllClasses = () => {
   const [sortOption, setSortOption] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -15,7 +16,7 @@ const AllClasses = () => {
     queryKey: ["allClasses", sortOption],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/accepted-classes", {
-        params: { sort: sortOption }
+        params: { sort: sortOption },
       });
       return data;
     },
@@ -30,9 +31,16 @@ const AllClasses = () => {
   if (!allClasses || allClasses.length === 0) {
     return <LoadingSpinner></LoadingSpinner>;
   }
+
+  const searchClass = allClasses.filter(
+    (cls) =>
+      cls.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cls.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = allClasses?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = searchClass?.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <div>
       <Helmet>
@@ -42,7 +50,16 @@ const AllClasses = () => {
         All Classes
       </h1>
       {/* Sorting */}
-      <div className="py-5">
+      <div className="py-5 flex justify-between">
+        {/* search */}
+        <input
+          type="text"
+          placeholder="Search classes..."
+          className="input input-bordered w-full max-w-xs"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+
         <select
           onChange={handleSorting}
           defaultValue="Sort By"
@@ -105,7 +122,7 @@ const AllClasses = () => {
         ))}
       </div>
       <Pagination
-        totalItems={allClasses?.length}
+        totalItems={searchClass?.length}
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
