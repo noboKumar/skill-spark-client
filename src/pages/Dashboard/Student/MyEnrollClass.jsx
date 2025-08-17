@@ -33,15 +33,15 @@ const MyEnrollClass = () => {
         {myEnrollments.map((enrollmentData) => (
           <div
             key={enrollmentData._id}
-            className="bg-base-200 rounded-xl shadow-lg border border-gray-300 overflow-hidden"
+            className="bg-base-200 rounded-xl shadow-lg border border-gray-300 overflow-hidden flex flex-col h-full"
           >
             <img
               src={enrollmentData.image}
               alt={enrollmentData.title}
               className="w-full h-56 object-cover"
             />
-            <div className="p-5 flex flex-col">
-              <div className="flex-grow space-y-4">
+            <div className="p-5 flex flex-col flex-grow">
+              <div className="space-y-4 flex-grow">
                 <h2 className="text-2xl font-bold text-primary">
                   {enrollmentData.title}
                 </h2>
@@ -52,8 +52,11 @@ const MyEnrollClass = () => {
                 </p>
               </div>
 
-              <div className="pt-3 flex justify-end">
-                <Link to={`/dashboard/my-enroll-class/${enrollmentData.classId}`}>
+              {/* Button always at bottom */}
+              <div className="pt-3 mt-auto flex justify-end">
+                <Link
+                  to={`/dashboard/my-enroll-class/${enrollmentData.classId}`}
+                >
                   <button className="btn btn-primary btn-sm rounded-full">
                     Continue Class
                   </button>

@@ -27,7 +27,7 @@ const MeetOurTeachers = () => {
           >
             {/* Avatar */}
             <div className="avatar mx-auto">
-              <div className="w-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <div className="w-28 rounded-full ring-2 ring-primary ring-offset-base-100 ring-offset-2">
                 <img src={teacher.photoURL} alt={teacher.name} />
               </div>
             </div>
