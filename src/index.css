@@ -43,8 +43,8 @@
 
 [data-theme="dark"] {
   /* Brand Colors */
-  --color-primary: #0043be;       /* Brighter royal/navy blue */
-  --color-secondary: #ad7930;     /* Rich bronze-gold */
+  --color-primary: #236af0;       /* Brighter royal/navy blue */
+  --color-secondary: #eeab4d;     /* Rich bronze-gold */
   --color-accent: #bbbbbb;        /* Light gray for highlights */
 
   /* Base Colors (Dark Mode) */

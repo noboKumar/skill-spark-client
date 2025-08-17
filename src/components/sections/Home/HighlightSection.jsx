@@ -53,7 +53,7 @@ const HighlightSection = () => {
                   <FaUsers className="text-base" />
                   {slider.total_enrollment} Enrolled
                 </div>
-                <div className="flex items-center gap-2 bg-primary text-white px-4 py-1 rounded-full font-semibold text-sm">
+                <div className="flex items-center gap-2 bg-secondary text-blue-700 px-4 py-1 rounded-full font-bold text-sm">
                   <IoIosPricetags className="text-base" />${slider.price}
                 </div>
               </div>
