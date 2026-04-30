@@ -58,7 +58,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="glass-effect shadow-sm py-2 z-50 sticky top-0">
+    <div className="glass-effect shadow-sm py-2 z-50 sticky top-0  backdrop-blur-xl">
       <Container className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
