@@ -175,8 +175,8 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    setValue("email", "user@user.com");
-                    setValue("password", "user@user.com");
+                    setValue("email", "student@student.com");
+                    setValue("password", "student@student.com");
                   }}
                   className="btn btn-sm btn-outline btn-secondary rounded-lg"
                 >
