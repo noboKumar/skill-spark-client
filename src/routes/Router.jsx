@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import AllClasses from "../pages/AllClasses";
+import About from "../pages/About";
 import TeachOnSkillSpark from "../pages/TeachOnSkillSpark";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/all-classes",
         Component: AllClasses,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
       {
         path: "/contact-us",

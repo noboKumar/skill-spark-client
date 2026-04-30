@@ -23,6 +23,11 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink className={"hover: rounded-full"} to="/about">
+          About Us
+        </NavLink>
+      </li>
+      <li>
         <NavLink className={"hover: rounded-full"} to="/contact-us">
           Contact Us
         </NavLink>
@@ -35,14 +40,6 @@ const NavBar = () => {
               to="/teach-on-skill-spark"
             >
               Become a Teacher
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={"hover: rounded-full"}
-              to="/dashboard/overview"
-            >
-              Dashboard
             </NavLink>
           </li>
           <li>
