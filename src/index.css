@@ -10,9 +10,71 @@
 .body-font {
   font-family: "Source Sans 3", sans-serif;
 }
+
+:root {
+  /* Brand Colors - Refined for Premium Feel */
+  --color-primary: #1e40af;       /* Royal Blue */
+  --color-primary-focus: #1d4ed8;
+  --color-secondary: #f59e0b;     /* Amber Gold */
+  --color-accent: #10b981;        /* Emerald Green */
+  
+  /* Base Colors (Light Mode) */
+  --color-base-100: #ffffff;      /* Pure White */
+  --color-base-200: #f8fafc;      /* Soft Slate Blue-Gray */
+  --color-base-300: #f1f5f9;      /* Border/Divider */
+  --color-text: #0f172a;          /* Dark Slate */
+  --color-text-muted: #64748b;    /* Slate Gray */
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+}
+
+[data-theme="dark"] {
+  /* Brand Colors - Vibrant for Dark Mode */
+  --color-primary: #3b82f6;       /* Brighter Blue */
+  --color-primary-focus: #60a5fa;
+  --color-secondary: #fbbf24;
+  --color-accent: #34d399;
+
+  /* Base Colors (Dark Mode) */
+  --color-base-100: #0f172a;      /* Very Dark Slate */
+  --color-base-200: #1e293b;      /* Darker Slate */
+  --color-base-300: #334155;      /* Slate Borders */
+  --color-text: #f8fafc;          /* Light Slate */
+  --color-text-muted: #94a3b8;
+  --color-error: #f87171;
+  --color-success: #4ade80;
+}
+
 .active {
   @apply bg-primary text-white rounded-full;
 }
+
+/* Glassmorphism Utility */
+.glass-effect {
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="dark"] .glass-effect {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Premium Gradients */
+.gradient-primary {
+  background-image: linear-gradient(135deg, #1e40af 0%, #4f46e5 100%) !important;
+  color: white !important;
+}
+
+.gradient-text {
+  background-image: linear-gradient(to right, #1e40af, #6366f1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @keyframes blink {
   0%, 50%, 100% {
     opacity: 1;
@@ -26,33 +88,7 @@
   animation: blink 2s infinite;
 }
 
-:root {
-  /* Brand Colors */
-  --color-primary: #005bff;       /* Deep navy */
-  --color-secondary: #fcd44f;     /* Vibrant golden yellow */
-  --color-accent: #535353;        /* Dark gray */
-
-  /* Base Colors (Light Mode) */
-  --color-base-100: #f5f5f5;      /* Main background */
-  --color-base-200: #e8f2fc;      /* Light gray sections */
-  --color-base-300: #e0e0e0;      /* Borders / dividers */
-  --color-text: #2e2e2e;          /* Main text */
-  --color-error: #ff0000;
-  --color-success: #069406;
+/* Smooth Transitions */
+* {
+  transition: all 0.3s ease-in-out;
 }
-
-[data-theme="dark"] {
-  /* Brand Colors */
-  --color-primary: #236af0;       /* Brighter royal/navy blue */
-  --color-secondary: #eeab4d;     /* Rich bronze-gold */
-  --color-accent: #bbbbbb;        /* Light gray for highlights */
-
-  /* Base Colors (Dark Mode) */
-  --color-base-100: #222222;      /* Main background */
-  --color-base-200: #252525;      /* Cards/sections */
-  --color-base-300: #2a2a2a;      /* Borders / dividers */
-  --color-text: #f5f5f5;          /* Light text */
-  --color-error: #b10b0b;
-  --color-success: #026402;
-}
-

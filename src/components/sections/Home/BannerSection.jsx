@@ -61,19 +61,13 @@ const BannerSection = () => {
             {/* animation div */}
             <div className="absolute inset-0 flex items-center justify-center z-10 text-white px-4 text-center">
               {/* text and buttons */}
-              <div className="w-full md:w-2/3 lg:w-1/2 space-y-2 md:space-y-5">
-                <h1 className="lg:text-7xl md:text-5xl text-2xl marcellus heading-font">
+              <div className="w-full md:w-2/3 lg:w-1/2 space-y-4 md:space-y-6">
+                <h1 className="lg:text-7xl md:text-5xl text-3xl marcellus heading-font font-extrabold leading-tight tracking-tight">
                   {slider.title}
                 </h1>
-                <p className="md:text-xl line-clamp-3 md:line-clamp-5">
+                <p className="md:text-xl text-lg opacity-90 line-clamp-3 md:line-clamp-5 max-w-2xl mx-auto">
                   {slider.paragraph}
                 </p>
-                <Link
-                  to={"/all-classes"}
-                  className="btn bg-primary rounded-full border-none shadow text-white"
-                >
-                  {slider.buttonText}
-                </Link>
               </div>
             </div>
           </div>

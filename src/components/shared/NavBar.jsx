@@ -40,6 +40,14 @@ const NavBar = () => {
           <li>
             <NavLink
               className={"hover: rounded-full"}
+              to="/dashboard/overview"
+            >
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={"hover: rounded-full"}
               to="/dashboard"
             >
               Profile
@@ -50,7 +58,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="bg-base-200 shadow-sm py-2 z-50 sticky top-0">
+    <div className="glass-effect shadow-sm py-2 z-50 sticky top-0">
       <Container className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
@@ -84,7 +92,7 @@ const NavBar = () => {
           {user ? (
             <DropDownAvatar />
           ) : (
-            <Link to="/login" className="btn btn-primary text-white gap-2">
+            <Link to="/login" className="btn btn-primary text-white gap-2 px-6 rounded-full gradient-primary border-none shadow-md">
               <FiLogIn size={18} />
               Sign in
             </Link>

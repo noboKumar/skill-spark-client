@@ -18,6 +18,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -166,6 +167,43 @@ const Login = () => {
               </svg>
               Google
             </button>
+
+            {/* Demo Login Buttons */}
+            <div className="mt-8 space-y-3">
+              <p className="text-sm font-semibold text-gray-500 text-center">Quick Login (Demo)</p>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("email", "user@user.com");
+                    setValue("password", "user@user.com");
+                  }}
+                  className="btn btn-sm btn-outline btn-secondary rounded-lg"
+                >
+                  Student
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("email", "teacher@teacher.com");
+                    setValue("password", "teacher@teacher.com");
+                  }}
+                  className="btn btn-sm btn-outline btn-secondary rounded-lg"
+                >
+                  Teacher
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setValue("email", "admin@hero.com");
+                    setValue("password", "admin1234");
+                  }}
+                  className="btn btn-sm btn-outline btn-secondary rounded-lg"
+                >
+                  Admin
+                </button>
+              </div>
+            </div>
           </form>
           <p className="text-center py-5">
             Don't have an account?{" "}

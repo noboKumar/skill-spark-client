@@ -16,7 +16,7 @@ const Footer = () => {
     e.target.reset();
   };
   return (
-    <footer className="bg-base-200">
+    <footer className="bg-base-200/50 border-t border-base-300">
       <Container className="footer sm:footer-horizontal text-base-content p-10">
         <aside className="flex flex-col gap-2">
           <Logo />

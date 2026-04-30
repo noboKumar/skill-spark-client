@@ -26,7 +26,7 @@ const HighlightSection = () => {
         {(highlightClass || []).map((slider, index) => (
           <div
             key={index}
-            className="bg-base-100 rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+            className="glass-effect rounded-2xl shadow-sm overflow-hidden border border-base-300 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 flex flex-col"
           >
             {/* Image */}
             <img
@@ -39,7 +39,7 @@ const HighlightSection = () => {
             <div className="p-6 space-y-3 flex flex-col flex-1 bg-base-200">
               {/* Title & Description */}
               <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-primary leading-snug">
+                <h2 className="text-2xl font-bold heading-font leading-snug">
                   {slider.title}
                 </h2>
                 <p className="text-gray-600 text-sm md:text-base line-clamp-2">
@@ -61,7 +61,7 @@ const HighlightSection = () => {
               {/* Button at the bottom */}
               <div className="pt-2 mt-auto">
                 <Link to={`/classes/${slider._id}`}>
-                  <button className="btn btn-primary btn-block rounded-full">
+                  <button className="btn gradient-primary btn-block rounded-full text-white border-none shadow-md hover:shadow-lg">
                     {slider.buttonText || "Join Class"}
                   </button>
                 </Link>
