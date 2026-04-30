@@ -6,11 +6,13 @@ import { axiosPublic } from "../API/utils";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import { Helmet } from "react-helmet";
 
+import CourseCard from "../components/UI/CourseCard";
+
 const AllClasses = () => {
   const [sortOption, setSortOption] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8; // Adjusted for better grid layout
 
   const { data: allClasses } = useQuery({
     queryKey: ["allClasses", sortOption],
@@ -41,92 +43,71 @@ const AllClasses = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = searchClass?.slice(indexOfFirstItem, indexOfLastItem);
-  return (
-    <div>
-      <Helmet>
-        <title>Skill Spark | all classes</title>
-      </Helmet>
-      <h1 className="text-3xl font-bold text-center mb-5 text-primary divider heading-font">
-        All Classes
-      </h1>
-      {/* Sorting */}
-      <div className="py-5 flex justify-between">
-        {/* search */}
-        <input
-          type="text"
-          placeholder="Search classes..."
-          className="input input-bordered w-full max-w-xs"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
 
-        <select
-          onChange={handleSorting}
-          defaultValue="Sort By"
-          className="select cursor-pointer"
-        >
-          <option disabled={true}>Sort By</option>
-          <option value={"high-low"}>Sort by High-Low</option>
-          <option value={"low-high"}>Sort by Low-High</option>
-          <option value={"reset"}>Reset</option>
-        </select>
+  return (
+    <div className="pb-20">
+      <Helmet>
+        <title>Skill Spark | All Classes</title>
+      </Helmet>
+      
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold heading-font gradient-text mb-4">
+          Explore All Classes
+        </h1>
+        <p className="text-gray-500 max-w-2xl mx-auto">
+          Discover a wide range of expert-led courses designed to help you master new skills and advance your career.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {(currentItems || []).map((data) => (
-          <div
-            key={data._id}
-            className="bg-base-200 rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition-transform duration-300 hover:scale-[1.02] flex flex-col"
+      {/* Filtering & Sorting */}
+      <div className="glass-effect p-6 rounded-3xl mb-12 flex flex-col md:flex-row justify-between items-center gap-6 shadow-sm border border-base-300/50">
+        {/* search */}
+        <div className="relative w-full md:max-w-md">
+          <input
+            type="text"
+            placeholder="Search by class title or instructor..."
+            className="input input-bordered w-full rounded-2xl bg-base-100 pl-12 shadow-sm focus:ring-2 focus:ring-primary/20"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4 w-full md:w-auto">
+          <span className="text-sm font-semibold text-gray-500 whitespace-nowrap">Sort By:</span>
+          <select
+            onChange={handleSorting}
+            defaultValue="Sort By"
+            className="select select-bordered rounded-2xl bg-base-100 shadow-sm min-w-[180px] focus:ring-2 focus:ring-primary/20 cursor-pointer"
           >
-            <figure>
-              <img
-                src={data.image}
-                alt={data.title}
-                className="w-full h-60 object-cover"
-              />
-            </figure>
+            <option disabled={true}>Sort By</option>
+            <option value={"high-low"}>Price: High to Low</option>
+            <option value={"low-high"}>Price: Low to High</option>
+            <option value={"reset"}>Default Order</option>
+          </select>
+        </div>
+      </div>
 
-            <div className="p-5 space-y-3 flex flex-col justify-between h-full">
-              <div className="flex-grow space-y-3">
-                <h2 className="text-xl font-bold">{data.title}</h2>
-
-                <p className="text-lg font-bold text-primary badge badge-secondary border-b-2 border-gray-400">
-                  ${data.price}
-                </p>
-
-                <p className=" text-sm line-clamp-3">{data.description}</p>
-
-                <div className="text-sm  space-y-1">
-                  <p>
-                    <span className="font-medium">Instructor:</span> {data.name}
-                  </p>
-                  <p>
-                    <span className="font-medium">Email:</span> {data.email}
-                  </p>
-                  <p>
-                    <span className="font-medium">Enrollment:</span>{" "}
-                    {data.total_enrollment}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <Link to={`/classes/${data._id}`}>
-                  <button className="w-full btn btn-primary rounded-full">
-                    Enroll Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {(currentItems || []).map((course) => (
+          <CourseCard key={course._id} course={course} />
         ))}
       </div>
-      <Pagination
-        totalItems={searchClass?.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      ></Pagination>
+
+      {searchClass?.length > itemsPerPage && (
+        <div className="mt-16">
+          <Pagination
+            totalItems={searchClass?.length}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

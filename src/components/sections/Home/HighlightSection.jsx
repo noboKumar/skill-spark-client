@@ -1,11 +1,9 @@
 import React from "react";
 import HeadingText from "../../UI/HeadingText";
 import { useQuery } from "@tanstack/react-query";
-import { FaUsers } from "react-icons/fa";
-import { IoIosPricetags } from "react-icons/io";
-import { Link } from "react-router";
 import { axiosPublic } from "../../../API/utils";
 import LoadingSpinner from "../../UI/LoadingSpinner";
+import CourseCard from "../../UI/CourseCard";
 
 const HighlightSection = () => {
   const { data: highlightClass, isLoading } = useQuery({
@@ -15,59 +13,18 @@ const HighlightSection = () => {
       return data;
     },
   });
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
+
   return (
-    <div className="my-20">
+    <div className="my-24">
       <HeadingText>Highlighted Classes</HeadingText>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {(highlightClass || []).map((slider, index) => (
-          <div
-            key={index}
-            className="glass-effect rounded-2xl shadow-sm overflow-hidden border border-base-300 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 flex flex-col"
-          >
-            {/* Image */}
-            <img
-              src={slider.image}
-              alt={slider.title}
-              className="w-full h-56 object-cover object-center"
-            />
-
-            {/* Content */}
-            <div className="p-6 space-y-3 flex flex-col flex-1 bg-base-200">
-              {/* Title & Description */}
-              <div className="space-y-2">
-                <h2 className="text-2xl font-bold heading-font leading-snug">
-                  {slider.title}
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base line-clamp-2">
-                  {slider.description}
-                </p>
-              </div>
-
-              {/* Stats */}
-              <div className="flex flex-wrap gap-3 items-center">
-                <div className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                  <FaUsers className="text-base" />
-                  {slider.total_enrollment} Enrolled
-                </div>
-                <div className="flex items-center gap-2 bg-secondary text-blue-700 px-4 py-1 rounded-full font-bold text-sm">
-                  <IoIosPricetags className="text-base" />${slider.price}
-                </div>
-              </div>
-
-              {/* Button at the bottom */}
-              <div className="pt-2 mt-auto">
-                <Link to={`/classes/${slider._id}`}>
-                  <button className="btn gradient-primary btn-block rounded-full text-white border-none shadow-md hover:shadow-lg">
-                    {slider.buttonText || "Join Class"}
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {(highlightClass || []).map((course, index) => (
+          <CourseCard key={index} course={course} />
         ))}
       </div>
     </div>
