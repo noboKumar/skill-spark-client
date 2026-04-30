@@ -1,11 +1,13 @@
 # Skill Spark – an online learning platform
+<img src="./public/skillSpark.jpg" alt="Skill Spark Logo" />
 
-🚀 **Live Site:** [https://skill-sparkx.netlify.app/](https://skill-sparkx.netlify.app/)  
+🚀 **Live Site:** [https://skill-sparkx.netlify.app](https://skill-sparkx.netlify.app)  
 🛠️ **Admin Credentials**  
 - **Email:** `admin@hero.com`  
 - **Password:** `admin1234`  
 
 ---
+
 
 ## 📚 About Skill Spark
 
@@ -48,7 +50,7 @@
 
 ---
 
-## 🧰 Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend:** React, TailwindCSS, DaisyUI, React Hook Form, React Icons, Swiper, Lottie
 - **Backend:** Node.js, Express.js, MongoDB, Stripe API
@@ -85,7 +87,7 @@
 1. **Clone the Repository**
 
 ```bash
-https://github.com/noboKumar/skill-spark.git
+https://github.com/noboKumar/skill-spark-client.git
 cd skill-spark
 
 ```
@@ -126,10 +128,11 @@ npm run dev
 
 ### 🔧 Backend Setup (Node.js + Express)
 
-1. **Navigate to Backend Folder** (if it's a separate folder like `/server`):
 
 ```bash
-cd server
+https://github.com/noboKumar/skill-spark-server.git
+cd skill-spark-server
+
 ```
 
 2. **Install Backend Dependencies**
@@ -143,6 +146,9 @@ npm install
 ```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+STRIPE_SECRET_KEY=your_stripe_secret_key
+PORT=3000
 ```
 
 4. **Start the Backend Server**
@@ -151,6 +157,6 @@ MONGODB_URI=your_mongodb_connection_string
 npm run dev
 ```
 
-> Server will run at **[http://localhost:5000](http://localhost:5000)**
+> Server will run at **[http://localhost:3000](http://localhost:3000)**
 
 ---
