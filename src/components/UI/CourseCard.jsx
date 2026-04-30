@@ -34,12 +34,6 @@ const CourseCard = ({ course }) => {
             {description}
           </p>
         </div>
-        
-        {/* Price Badge */}
-        <div className="absolute top-4 right-4 bg-secondary text-blue-900 px-4 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-2 text-sm z-10">
-          <IoIosPricetags />
-          ${price}
-        </div>
       </div>
 
       {/* Content */}
@@ -56,11 +50,15 @@ const CourseCard = ({ course }) => {
           )}
         </div>
 
-        {/* Stats Row */}
-        <div className="flex items-center justify-between pt-2 border-t border-base-300/30">
+        {/* Stats & Price Row */}
+        <div className="flex items-center justify-between pt-4 border-t border-base-300/30">
           <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm font-medium">
             <FaUsers className="text-primary" />
             <span>{total_enrollment} Students</span>
+          </div>
+          <div className="text-xl font-bold text-primary flex items-center gap-1">
+            <span className="text-sm font-medium text-gray-500">$</span>
+            {price}
           </div>
         </div>
 
