@@ -27,6 +27,7 @@ const PaymentModal = ({ isOpen, setIsOpen, price, title,id, classDetails }) => {
             </DialogTitle>
             <h1 className="text-xl font-semibold mb-4">{title}</h1>
             <h1 className="text-lg font-semibold mb-4">Price: ${price}</h1>
+            <p className="text-sm text-gray-400">Demo Card: <span className="font-bold">4242424242424242</span>  exp: <span className="font-bold">10/30</span>   cvv: <span className="font-bold">123</span> zip: <span className="font-bold">12345</span></p>
 
             <Elements stripe={stripePromise}>
               <CheckOutForm setIsOpen={setIsOpen} price={price} id={id} classDetails={classDetails}></CheckOutForm>
